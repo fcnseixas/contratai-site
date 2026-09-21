@@ -302,6 +302,20 @@
   .calm p{margin-top:14px;color:var(--muted);font-size:17px;max-width:44ch}
   .calm p + p{margin-top:12px}
 
+  /* ---------- credenciais ---------- */
+  .prova{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+    border:1px solid var(--line);border-radius:var(--radius);
+    overflow:hidden;margin-bottom:76px;background:var(--surface);
+  }
+  .prova div{padding:26px 24px;border-left:1px solid var(--line)}
+  .prova div:first-child{border-left:0}
+  .prova strong{
+    display:block;font-family:Archivo,sans-serif;font-size:19px;font-weight:700;
+    letter-spacing:-.02em;color:var(--brand-bright);margin-bottom:8px;
+  }
+  .prova p{font-size:14.5px;color:var(--muted);line-height:1.5}
+
   /* ---------- painel de entrevistas ---------- */
   .calm-wrap{margin-bottom:76px}
   .panel{
@@ -426,6 +440,9 @@
     .hero{grid-template-columns:1fr;gap:40px;padding:48px 28px 52px}
     .steps{grid-template-columns:1fr;gap:30px}
     .vs{grid-template-columns:1fr;gap:16px;margin-bottom:56px}
+    .prova{grid-template-columns:1fr;margin-bottom:56px}
+    .prova div{border-left:0;border-top:1px solid var(--line)}
+    .prova div:first-child{border-top:0}
     .calm{grid-template-columns:1fr;gap:26px}
     .calm-wrap{margin-bottom:56px}
     .panel-top{padding:16px}
@@ -542,6 +559,25 @@
         <div class="msg from-bot">Obrigado! Você já trabalhou com CRM?</div>
       </div>
       </div>
+    </div>
+  </section>
+
+
+  <section class="prova">
+    <div>
+      <strong>Seis anos em processos seletivos</strong>
+      <p>O roteiro do agente saiu de entrevista de verdade, conduzida por quem
+      contratava — não de manual de produto.</p>
+    </div>
+    <div>
+      <strong>Escolhendo as primeiras empresas</strong>
+      <p>Estamos em beta, com poucos clientes de cada vez, para ajustar o produto
+      junto com quem usa. Você fala direto com quem constrói.</p>
+    </div>
+    <div>
+      <strong>Feito para alto volume</strong>
+      <p>Varejo, supermercado, logística, food service, telemarketing, facilities
+      e construção — onde entra e sai gente o ano inteiro.</p>
     </div>
   </section>
 
