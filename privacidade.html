@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Privacidade · contratai</title>
+<meta name="description" content="Como o contrataí trata dados pessoais de candidatos e usuários, sob a LGPD.">
+<link rel="canonical" href="https://contratai.net/privacidade">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Privacidade · contratai">
+<meta property="og:description" content="Como o contrataí trata dados pessoais de candidatos e usuários, sob a LGPD.">
+<meta property="og:url" content="https://contratai.net/privacidade">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  /* base — o que o visualizador de artifacts injetava, agora explícito */
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-strong:#07894F; --brand-soft:#E9F7F0;
+    --voice:#A9620F; --warn-bg:#FCF5E8; --warn-line:#E8CE9B;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-strong:#3FD592; --brand-soft:#0E2F22;
+    --voice:#E0913A; --warn-bg:#241B0C; --warn-line:#5A431E;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,sans-serif;
+    font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin-inline:auto;padding-inline:20px}
+  h1,h2,h3{font-family:Archivo,system-ui,sans-serif;margin:0;text-wrap:balance;letter-spacing:-.025em;line-height:1.12}
+  p{margin:0}
+  a{color:var(--brand-strong);text-decoration:underline;text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--voice);outline-offset:2px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px}
+  .logo{display:block;line-height:0}
+  .logo img{height:30px;width:auto;display:block}
+  .logo .escuro{display:none}
+  :root[data-mode="dark"] .logo .claro{display:none}
+  :root[data-mode="dark"] .logo .escuro{display:block}
+  .nav .back{font-size:14px;color:var(--muted);text-decoration:none}
+  .nav .back:hover{color:var(--ink)}
+
+  header.top{padding-block:26px 34px;border-bottom:1px solid var(--line);margin-bottom:34px}
+  header.top .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand-strong);margin-bottom:14px;
+  }
+  header.top h1{font-size:clamp(30px,4.6vw,42px);font-weight:800}
+  header.top .meta{
+    margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:6px 18px;
+  }
+
+  .draft{
+    background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;
+    padding:16px 18px;margin-bottom:38px;
+  }
+  .draft b{font-weight:600}
+  .draft p{font-size:14.5px;color:var(--ink)}
+
+  section{margin-bottom:38px}
+  section h2{font-size:21px;font-weight:700;margin-bottom:12px;display:flex;gap:11px;align-items:baseline}
+  section h2 .n{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--brand);
+    font-weight:500;letter-spacing:.06em;flex:none;
+  }
+  section p + p{margin-top:12px}
+  section h3{font-size:16px;font-weight:700;margin-top:20px;margin-bottom:7px}
+  ul{margin:12px 0 0;padding-left:20px}
+  li{margin-bottom:7px}
+  li::marker{color:var(--brand)}
+
+  .key{
+    background:var(--brand-soft);border-radius:12px;padding:20px 22px;margin:20px 0;
+  }
+  .key h3{margin-top:0}
+  .fill{
+    background:var(--warn-bg);border-bottom:1px solid var(--warn-line);
+    padding:1px 5px;border-radius:3px;font-family:"IBM Plex Mono",monospace;font-size:13px;
+  }
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+  .tbl{overflow-x:auto}
+
+  footer{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    padding-block:26px 44px;margin-top:20px;border-top:1px solid var(--line);
+    font-size:13.5px;color:var(--muted);
+  }
+  footer .dom{font-family:"IBM Plex Mono",monospace}
+
+  @media (max-width:520px){
+    section h2{flex-direction:column;gap:4px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="logo" href="/">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <a class="back" href="/">&larr; Voltar ao site</a>
+  </nav>
+
+  <header class="top">
+    <p class="kicker">Política de Privacidade</p>
+    <h1>Como o contrataí trata dados pessoais.</h1>
+    <div class="meta">
+      <span>Versão 1.0</span>
+      <span>Vigente desde <span class="fill">[data]</span></span>
+      <span>LGPD · Lei 13.709/2018</span>
+    </div>
+  </header>
+
+  <div class="draft">
+    <p><b>Minuta para revisão jurídica.</b> Este texto foi redigido como base técnica e ainda
+    não passou por análise de advogado. Os campos destacados precisam ser preenchidos e todo
+    o documento revisado antes de entrar no ar.</p>
+  </div>
+
+  <section>
+    <h2><span class="n">01</span> Quem somos</h2>
+    <p>O contrataí é uma plataforma que permite a empresas conduzir entrevistas iniciais de
+    candidatos por meio de um agente de inteligência artificial no WhatsApp. O candidato
+    responde às perguntas por áudio ou texto, o sistema transcreve as respostas e entrega um
+    relatório à equipe de recrutamento.</p>
+    <p>A plataforma é operada por <span class="fill">[razão social]</span>, inscrita no CNPJ
+    <span class="fill">[CNPJ]</span>, com sede em <span class="fill">[endereço]</span>.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">02</span> Dois papéis diferentes — e isto importa</h2>
+    <p>A LGPD distingue quem <b>decide</b> sobre o tratamento (controlador) de quem
+    <b>executa</b> o tratamento em nome de outro (operador). No contrataí, os dois papéis
+    existem ao mesmo tempo, e de quem é cada dado muda conforme o caso.</p>
+
+    <div class="key">
+      <h3>Dados de candidatos</h3>
+      <p>A <b>empresa cliente</b> que abriu a vaga é a <b>controladora</b>. É ela que decide
+      quais vagas existem, quais perguntas serão feitas, por quanto tempo os dados ficam
+      guardados e o que fazer com o resultado. O contrataí atua como <b>operador</b>, tratando
+      esses dados apenas conforme as instruções dessa empresa.</p>
+      <p style="margin-top:10px">Na prática: se você é candidato e quer excluir seus dados ou
+      saber por que foi recusado, quem responde é a empresa à qual você se candidatou. Nós
+      ajudamos a cumprir o pedido, mas não decidimos sozinhos sobre ele.</p>
+    </div>
+
+    <div class="key">
+      <h3>Dados de usuários da plataforma</h3>
+      <p>Para os dados de quem acessa o painel — recrutadores, administradores e responsáveis
+      pelas empresas clientes — o contrataí é o <b>controlador</b>, porque somos nós que
+      decidimos como a conta funciona, como o acesso é autenticado e o que é registrado.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2><span class="n">03</span> Que dados tratamos</h2>
+
+    <h3>De candidatos</h3>
+    <ul>
+      <li>Nome, número de telefone e, quando informado, e-mail</li>
+      <li>As mensagens trocadas com o agente no WhatsApp</li>
+      <li><b>As gravações de áudio enviadas</b> e suas transcrições em texto</li>
+      <li>As respostas associadas a cada pergunta do roteiro da vaga</li>
+      <li>Informações que o próprio candidato fornece ao responder, como experiência
+      profissional, pretensão salarial e disponibilidade</li>
+      <li>Datas e horários das interações e o andamento da entrevista</li>
+    </ul>
+    <p style="margin-top:12px">Não pedimos e não temos interesse em dados sensíveis. Se o
+    candidato mencionar espontaneamente informação de saúde, origem racial, religião, opinião
+    política, filiação sindical ou vida sexual ao responder, esse conteúdo permanece na
+    transcrição porque ela é fiel ao que foi dito — mas o sistema não pergunta sobre esses
+    temas, não os organiza em campos próprios e não os utiliza para nenhuma classificação.</p>
+
+    <h3>De usuários da plataforma</h3>
+    <ul>
+      <li>Nome, e-mail corporativo e telefone</li>
+      <li>Empresa à qual pertence e nível de acesso</li>
+      <li>Registros de auditoria: entrada e saída, o que foi criado ou alterado, e quando</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span> Áudio e transcrição</h2>
+    <p>Esta é a parte mais sensível do serviço, então tratamos dela em separado.</p>
+    <ul>
+      <li>O <b>áudio original nunca é substituído nem apagado pela transcrição</b>. Os dois
+      coexistem, para que a empresa possa conferir o que foi realmente dito em vez de depender
+      de uma interpretação.</li>
+      <li>Os arquivos ficam em armazenamento <b>privado</b>. Não existe endereço público para
+      um áudio. O acesso se dá por links temporários, gerados sob demanda e válidos por poucos
+      minutos.</li>
+      <li>Cada acesso a um áudio fica <b>registrado</b>, com identificação de quem ouviu e quando.</li>
+      <li>A voz é usada <b>apenas para transcrever o conteúdo da resposta</b>. Não fazemos
+      reconhecimento de locutor, não geramos identificador biométrico e não usamos
+      características da voz para avaliar o candidato.</li>
+      <li>As gravações e transcrições <b>não são usadas para treinar modelos</b> de inteligência
+      artificial, nossos ou de terceiros.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">05</span> Para que usamos, e com que base legal</h2>
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr><th>Finalidade</th><th>Base legal (art. 7º)</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Conduzir a entrevista e registrar as respostas do candidato</td>
+            <td>Procedimentos preliminares relacionados a contrato, a pedido do titular</td>
+          </tr>
+          <tr>
+            <td>Transcrever os áudios para gerar o relatório da entrevista</td>
+            <td>Procedimentos preliminares relacionados a contrato</td>
+          </tr>
+          <tr>
+            <td>Dar acesso à plataforma e manter a conta funcionando</td>
+            <td>Execução de contrato</td>
+          </tr>
+          <tr>
+            <td>Registrar auditoria e proteger a plataforma contra uso indevido</td>
+            <td>Legítimo interesse</td>
+          </tr>
+          <tr>
+            <td>Cumprir obrigações legais e responder a autoridades</td>
+            <td>Cumprimento de obrigação legal</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="margin-top:14px">O candidato é informado, no início da conversa, de que está
+    interagindo com um agente automatizado e de que suas respostas serão registradas.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">06</span> O que a inteligência artificial faz — e o que não faz</h2>
+    <p>O agente conduz a conversa, interpreta o que foi respondido para saber qual é a próxima
+    pergunta e transcreve os áudios. É só isso.</p>
+    <p><b>O agente não aprova, não reprova, não atribui nota e não classifica candidatos.</b>
+    Nenhuma decisão sobre a candidatura é tomada de forma automatizada pela plataforma: quem
+    analisa o relatório e decide quem avança é sempre uma pessoa da empresa contratante.</p>
+    <p>Ainda assim, nos termos do art. 20 da LGPD, o titular pode solicitar informações sobre
+    os critérios utilizados e pedir revisão de decisões que o afetem — pedido que deve ser
+    dirigido à empresa à qual se candidatou.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">07</span> Com quem compartilhamos</h2>
+    <p>Não vendemos dados pessoais e não os cedemos para publicidade. Compartilhamos apenas com
+    fornecedores necessários para o serviço funcionar, todos obrigados contratualmente a tratar
+    os dados somente conforme nossas instruções.</p>
+    <div class="tbl">
+      <table>
+        <thead>
+          <tr><th>Fornecedor</th><th>Para quê</th><th>Onde</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Supabase</td><td>Banco de dados, autenticação e armazenamento dos arquivos</td><td><span class="fill">[região]</span></td></tr>
+          <tr><td>OpenAI</td><td>Transcrição dos áudios e interpretação das respostas</td><td>Estados Unidos</td></tr>
+          <tr><td>Meta / WhatsApp</td><td>Transporte das mensagens até o candidato</td><td>Estados Unidos</td></tr>
+          <tr><td><span class="fill">[hospedagem]</span></td><td>Execução da aplicação</td><td><span class="fill">[região]</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Transferência internacional</h3>
+    <p>Parte do tratamento ocorre fora do Brasil, conforme a tabela acima. Essas transferências
+    são amparadas por cláusulas contratuais específicas com os fornecedores, nos termos do
+    art. 33 da LGPD.</p>
+    <p>Sobre a conversa no WhatsApp: ela acontece na infraestrutura da Meta, que possui política
+    de privacidade própria, aplicável ao aplicativo que o candidato já utiliza.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">08</span> Por quanto tempo guardamos</h2>
+    <ul>
+      <li><b>Dados de candidatos:</b> pelo prazo definido pela empresa cliente controladora,
+      limitado a <span class="fill">[prazo]</span> após a conclusão da entrevista, salvo
+      obrigação legal ou pedido expresso de exclusão.</li>
+      <li><b>Áudios e transcrições:</b> mesmo prazo dos demais dados da entrevista. A exclusão
+      remove o áudio do armazenamento, não apenas a referência a ele.</li>
+      <li><b>Registros de auditoria:</b> <span class="fill">[prazo]</span>, por serem necessários
+      à segurança da plataforma.</li>
+      <li><b>Dados de usuários da plataforma:</b> enquanto a conta existir, e por
+      <span class="fill">[prazo]</span> após o encerramento.</li>
+    </ul>
+    <p style="margin-top:12px">Encerrado o contrato com a empresa cliente, os dados sob sua
+    controladoria são devolvidos ou eliminados, conforme ela determinar.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">09</span> Segurança</h2>
+    <ul>
+      <li>Os dados de cada empresa cliente ficam <b>isolados</b> uns dos outros. A separação é
+      garantida no próprio banco de dados, e não apenas pela interface.</li>
+      <li>Acesso ao painel exige autenticação, com permissões distintas por perfil.</li>
+      <li>Arquivos de áudio e documentos ficam em armazenamento privado, acessíveis somente por
+      links temporários.</li>
+      <li>Dados trafegam criptografados e ficam criptografados em repouso.</li>
+      <li>Ações relevantes ficam registradas em trilha de auditoria.</li>
+    </ul>
+    <p style="margin-top:12px">Nenhum sistema é infalível. Em caso de incidente de segurança
+    com risco relevante aos titulares, comunicaremos as empresas clientes afetadas e a Autoridade
+    Nacional de Proteção de Dados, nos prazos aplicáveis.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span> Direitos do titular</h2>
+    <p>Nos termos do art. 18 da LGPD, qualquer titular pode solicitar:</p>
+    <ul>
+      <li>Confirmação de que tratamos seus dados, e acesso a eles</li>
+      <li>Correção de dados incompletos, inexatos ou desatualizados</li>
+      <li>Anonimização, bloqueio ou eliminação de dados desnecessários ou tratados em desconformidade</li>
+      <li>Portabilidade a outro fornecedor</li>
+      <li>Eliminação dos dados tratados com base em consentimento</li>
+      <li>Informação sobre com quem compartilhamos seus dados</li>
+      <li>Revogação do consentimento, quando essa for a base utilizada</li>
+    </ul>
+    <p style="margin-top:12px"><b>Se você é candidato</b>, o pedido deve ser dirigido à empresa
+    para cuja vaga você se candidatou, por ser ela a controladora. Se preferir falar conosco,
+    encaminharemos a ela e acompanharemos o atendimento.</p>
+    <p><b>Se você é usuário da plataforma</b>, fale diretamente conosco pelo contato abaixo.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span> Cookies</h2>
+    <p>Usamos apenas o necessário para manter você conectado ao painel e lembrar preferências
+    básicas, como o tema claro ou escuro. Não utilizamos cookies de publicidade nem de
+    rastreamento entre sites. O candidato não precisa acessar nenhum site para ser entrevistado:
+    tudo acontece no WhatsApp.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span> Mudanças nesta política</h2>
+    <p>Se esta política mudar de forma relevante, avisaremos as empresas clientes por e-mail e
+    atualizaremos a data de vigência no topo desta página. Recomendamos revisitá-la
+    periodicamente.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">13</span> Contato</h2>
+    <p>Encarregado pelo tratamento de dados pessoais (DPO):
+    <span class="fill">[nome do encarregado]</span>.</p>
+    <p style="margin-top:8px">E-mail: <span class="fill">[privacidade@contratai.net]</span><br>
+    Endereço: <span class="fill">[endereço]</span></p>
+    <p style="margin-top:12px">Você também pode peticionar à Autoridade Nacional de Proteção de
+    Dados (ANPD), se entender que seus direitos não foram atendidos.</p>
+  </section>
+
+  <footer>
+    <span>© <span class="fill">[ano]</span> contrataí</span>
+    <span class="dom">contratai.net</span>
+  </footer>
+
+</div>
+
+</body>
+</html>
