@@ -411,6 +411,12 @@
     font-size:13.5px;color:var(--muted);
   }
   footer .dom{font-family:"IBM Plex Mono",monospace}
+  .creditos{display:flex;align-items:center;gap:9px}
+  .creditos .sep{color:var(--line)}
+  .sinal7{color:var(--voice-ink);text-decoration:none;font-weight:600}
+  .sinal7:hover{text-decoration:underline;text-underline-offset:3px}
+  .sinal7:focus-visible{outline:2px solid var(--voice-ink);outline-offset:3px;border-radius:3px}
+
   .flinks{display:flex;flex-wrap:wrap;gap:8px 22px}
   .flinks a{color:var(--muted);text-decoration:none;transition:color .15s ease}
   .flinks a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
@@ -722,7 +728,11 @@
       <a href="/privacidade">Política de Privacidade</a>
       <a href="mailto:contato@contratai.net">Contato</a>
     </nav>
-    <span class="dom">contratai.net</span>
+    <span class="creditos">
+      <span class="dom">contratai.net</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <a class="sinal7" href="https://sinal7.com.br">Sinal7</a>
+    </span>
   </footer>
 
 </div>
