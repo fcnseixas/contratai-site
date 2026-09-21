@@ -417,6 +417,12 @@
     display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;
   }
   .close h2{font-size:clamp(25px,3.2vw,34px);font-weight:700;max-width:20ch}
+  .oferta{
+    display:flex;align-items:center;gap:9px;margin-top:16px;
+    font-size:16px;font-weight:600;color:var(--brand-bright);
+  }
+  .oferta svg{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;
+    stroke-linecap:round;stroke-linejoin:round}
   .close p{margin-top:11px;color:var(--muted);font-size:16px;max-width:38ch}
 
   footer{
@@ -750,6 +756,10 @@
     <div>
       <h2>Comece pela sua vaga mais concorrida.</h2>
       <p>Aquela que recebe duzentos currículos e trava a semana do time.</p>
+      <p class="oferta">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+        As 10 primeiras entrevistas são por nossa conta.
+      </p>
     </div>
     <a class="btn btn-primary" href="mailto:contato@contratai.net">Agendar demonstração</a>
   </section>
