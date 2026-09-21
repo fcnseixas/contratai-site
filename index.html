@@ -115,7 +115,16 @@
     border:1px solid var(--brand);border-radius:999px;padding:2.5px 9px;
     line-height:1.4;
   }
-  .navdir{display:flex;align-items:center;gap:14px}
+  .navdir{display:flex;align-items:center;gap:12px}
+  .entrar{
+    display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
+    font-size:14px;font-weight:600;color:var(--ink);text-decoration:none;
+    padding:7px 15px;border:1px solid var(--line);border-radius:999px;
+    transition:border-color .16s ease,color .16s ease;
+  }
+  .entrar:hover{border-color:var(--brand);color:var(--brand-bright)}
+  .entrar:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+  .entrar svg{width:10px;height:10px;fill:currentColor;flex:none}
   .nav .dom{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--muted);letter-spacing:.02em}
   .switch{
     position:relative;width:56px;height:29px;flex:none;
@@ -448,7 +457,12 @@
       <span class="pill">beta</span>
     </div>
     <div class="navdir">
-      <span class="dom">contratai.net</span>
+      <a class="entrar" href="https://app.contratai.net">
+        Entrar
+        <svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.6 8.4 8.4 1.6M3 1.6h5.4V7"
+          stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"
+          stroke-linejoin="round"/></svg>
+      </a>
       <button class="switch" id="tema" type="button" role="switch" aria-checked="false"
               aria-label="Alternar entre tema claro e escuro">
         <span class="knob" aria-hidden="true"></span>
@@ -704,6 +718,7 @@
       <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
     </span>
     <nav class="flinks">
+      <a href="https://app.contratai.net">Entrar na plataforma</a>
       <a href="/privacidade">Política de Privacidade</a>
       <a href="mailto:contato@contratai.net">Contato</a>
     </nav>
