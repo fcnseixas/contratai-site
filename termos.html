@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Termos de Uso · contratai</title>
+<meta name="description" content="Condições de uso da plataforma contrataí: conta, teste gratuito, obrigações do cliente e responsabilidades.">
+<link rel="canonical" href="https://contratai.net/termos">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Termos de Uso · contratai">
+<meta property="og:description" content="Condições de uso da plataforma contrataí: conta, teste gratuito, obrigações do cliente e responsabilidades.">
+<meta property="og:url" content="https://contratai.net/termos">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  /* base — o que o visualizador de artifacts injetava, agora explícito */
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  img{max-width:100%}
+  [hidden]{display:none!important}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-strong:#07894F; --brand-soft:#E9F7F0;
+    --voice:#A9620F; --warn-bg:#FCF5E8; --warn-line:#E8CE9B;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-strong:#3FD592; --brand-soft:#0E2F22;
+    --voice:#E0913A; --warn-bg:#241B0C; --warn-line:#5A431E;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,sans-serif;
+    font-size:16px;line-height:1.62;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin-inline:auto;padding-inline:20px}
+  h1,h2,h3{font-family:Archivo,system-ui,sans-serif;margin:0;text-wrap:balance;letter-spacing:-.025em;line-height:1.12}
+  p{margin:0}
+  a{color:var(--brand-strong);text-decoration:underline;text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--voice);outline-offset:2px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px}
+  .logo{display:block;line-height:0}
+  .logo img{height:30px;width:auto;display:block}
+  .logo .escuro{display:none}
+  :root[data-mode="dark"] .logo .claro{display:none}
+  :root[data-mode="dark"] .logo .escuro{display:block}
+  .nav .back{font-size:14px;color:var(--muted);text-decoration:none}
+  .nav .back:hover{color:var(--ink)}
+
+  header.top{padding-block:26px 34px;border-bottom:1px solid var(--line);margin-bottom:34px}
+  header.top .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand-strong);margin-bottom:14px;
+  }
+  header.top h1{font-size:clamp(30px,4.6vw,42px);font-weight:800}
+  header.top .meta{
+    margin-top:16px;font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted);
+    display:flex;flex-wrap:wrap;gap:6px 18px;
+  }
+
+  .draft{
+    background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;
+    padding:16px 18px;margin-bottom:38px;
+  }
+  .draft b{font-weight:600}
+  .draft p{font-size:14.5px;color:var(--ink)}
+
+  section{margin-bottom:38px}
+  section h2{font-size:21px;font-weight:700;margin-bottom:12px;display:flex;gap:11px;align-items:baseline}
+  section h2 .n{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--brand);
+    font-weight:500;letter-spacing:.06em;flex:none;
+  }
+  section p + p{margin-top:12px}
+  section h3{font-size:16px;font-weight:700;margin-top:20px;margin-bottom:7px}
+  ul{margin:12px 0 0;padding-left:20px}
+  li{margin-bottom:7px}
+  li::marker{color:var(--brand)}
+
+  .key{
+    background:var(--brand-soft);border-radius:12px;padding:20px 22px;margin:20px 0;
+  }
+  .key h3{margin-top:0}
+  .fill{
+    background:var(--warn-bg);border-bottom:1px solid var(--warn-line);
+    padding:1px 5px;border-radius:3px;font-family:"IBM Plex Mono",monospace;font-size:13px;
+  }
+
+  table{width:100%;border-collapse:collapse;margin-top:14px;font-size:14.5px}
+  th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);font-weight:600}
+  .tbl{overflow-x:auto}
+
+  footer{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
+    padding-block:26px 44px;margin-top:20px;border-top:1px solid var(--line);
+    font-size:13.5px;color:var(--muted);
+  }
+  footer .dom{font-family:"IBM Plex Mono",monospace}
+  .creditos{display:flex;align-items:center;gap:9px}
+  .creditos .sep{color:var(--line)}
+  .sinal7{color:var(--voice);text-decoration:none;font-weight:600}
+  .sinal7:hover{text-decoration:underline;text-underline-offset:3px}
+  .sinal7:focus-visible{outline:2px solid var(--voice);outline-offset:3px;border-radius:3px}
+
+
+  @media (max-width:520px){
+    section h2{flex-direction:column;gap:4px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="logo" href="/">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <a class="back" href="/">&larr; Voltar ao site</a>
+  </nav>
+
+  <header class="top">
+    <p class="kicker">Termos de Uso</p>
+    <h1>As regras de uso da plataforma.</h1>
+    <div class="meta">
+      <span>Versão 1.0</span>
+      <span>Vigente desde 21 de setembro de 2026</span>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="n">01</span> Quem somos e o que oferecemos</h2>
+    <p>O contrataí é operado pela <b>Sinal7 Tecnologia e Inovação</b>, CNPJ 63.994.775/0001-40
+    ("nós"). A plataforma permite que empresas conduzam entrevistas iniciais de candidatos por
+    meio de um agente de inteligência artificial no WhatsApp, com transcrição das respostas e
+    geração de relatório.</p>
+    <p>Ao criar uma conta, você concorda com estes termos e com a
+    <a href="/privacidade">Política de Privacidade</a>, que é parte integrante deles.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">02</span> Quem pode contratar</h2>
+    <p>O serviço é destinado a <b>pessoas jurídicas</b>. Ao se cadastrar, você declara que:</p>
+    <ul>
+      <li>representa a empresa informada e tem poderes para assumir estes termos em nome dela;</li>
+      <li>o CNPJ informado é verdadeiro e está ativo;</li>
+      <li>as informações fornecidas no cadastro são corretas e serão mantidas atualizadas.</li>
+    </ul>
+    <p>Cadastro com dados falsos pode ser encerrado sem aviso.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">03</span> Conta e acesso</h2>
+    <ul>
+      <li>Você é responsável por tudo que acontece na sua conta, incluindo o que os usuários que
+      você criar fizerem nela.</li>
+      <li>Credenciais são pessoais e intransferíveis. Avise-nos imediatamente se suspeitar de uso
+      indevido.</li>
+      <li>Você pode criar, desativar e definir o nível de acesso dos seus usuários. Cabe a você
+      revisar esses acessos.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">04</span> Dados de candidatos: seu papel e o nosso</h2>
+    <div class="key">
+      <p><b>Você é o controlador. Nós somos o operador.</b> A empresa cliente decide quais vagas
+      existem, quais perguntas serão feitas e o que fazer com o resultado. Nós tratamos esses
+      dados apenas conforme as instruções da empresa, nos termos da LGPD.</p>
+    </div>
+    <p>Como controlador, é sua obrigação:</p>
+    <ul>
+      <li>ter base legal para tratar os dados dos candidatos;</li>
+      <li>informar os candidatos sobre o tratamento, quando cabível;</li>
+      <li>atender aos pedidos de titulares (acesso, correção, exclusão) — nós ajudamos, mas a
+      decisão é sua;</li>
+      <li>usar as informações apenas para o processo seletivo a que se destinam.</li>
+    </ul>
+    <p>As condições detalhadas estão na <a href="/privacidade">Política de Privacidade</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">05</span> O que a plataforma faz — e o que ela não faz</h2>
+    <p>O agente conduz a conversa, transcreve os áudios e organiza as respostas. <b>Ele não
+    avalia o candidato, não atribui nota de mérito, não aprova nem reprova ninguém.</b></p>
+    <p>Quando exibimos quantos requisitos da vaga um candidato atende, trata-se de uma
+    <b>conferência objetiva</b> entre as respostas dele e os requisitos que você declarou — não
+    de um julgamento sobre a pessoa. A decisão de contratar é inteiramente sua.</p>
+    <p>Não garantimos preenchimento de vaga, volume de candidatos, nem adequação de qualquer
+    candidato. A transcrição automática pode conter erros: o áudio original fica disponível
+    justamente para que você possa conferir.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">06</span> Teste gratuito</h2>
+    <ul>
+      <li>Oferecemos <b>10 entrevistas gratuitas</b> por empresa, sem custo e sem compromisso.</li>
+      <li>O limite é de entrevistas, não de vagas: você cria quantas vagas quiser.</li>
+      <li>Entrevista abandonada pelo candidato não consome a cota.</li>
+      <li><b>É um teste por CNPJ.</b> Novo cadastro com o mesmo CNPJ não renova a cota.</li>
+      <li>Esgotada a cota, as entrevistas em andamento são concluídas e novas ficam pausadas até
+      a contratação de um plano.</li>
+      <li>Podemos encerrar o teste a qualquer momento em caso de uso indevido.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="n">07</span> Planos e pagamento</h2>
+    <p>Após o teste, a continuidade depende da contratação de um plano. Valores, limites e
+    condições são apresentados no momento da contratação e podem ser alterados mediante aviso
+    prévio de 30 dias, sem afetar o período já pago.</p>
+    <p>Atraso no pagamento pode suspender o acesso. Avisamos antes de suspender.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">08</span> Uso aceitável</h2>
+    <p>É proibido usar a plataforma para:</p>
+    <ul>
+      <li>praticar discriminação vedada por lei em qualquer etapa do processo seletivo;</li>
+      <li>coletar dados sem relação com a vaga, ou dados sensíveis desnecessários;</li>
+      <li>enviar mensagens não solicitadas em massa, ou qualquer prática que viole as regras do
+      WhatsApp e da Meta;</li>
+      <li>tentar burlar limites de cota, acessar dados de outros clientes, ou submeter a
+      plataforma a engenharia reversa;</li>
+      <li>revender ou sublicenciar o acesso sem autorização.</li>
+    </ul>
+    <p>Prática que coloque em risco a reputação dos nossos números de WhatsApp pode levar à
+    suspensão imediata — o canal é compartilhado entre clientes.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">09</span> Disponibilidade</h2>
+    <p>Trabalhamos para manter o serviço disponível, mas ele depende de terceiros — WhatsApp,
+    provedores de IA e infraestrutura — e pode sofrer interrupções. Durante o teste gratuito
+    não há garantia de nível de serviço.</p>
+    <p>Manutenções programadas são avisadas com antecedência sempre que possível.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">10</span> Propriedade</h2>
+    <p>A plataforma, o software, a marca e os materiais são nossos. Você recebe uma licença de
+    uso limitada, não exclusiva e intransferível enquanto durar a relação.</p>
+    <p><b>Os dados que você insere e os dados dos candidatos são seus.</b> Não os usamos para
+    treinar modelos de inteligência artificial, nossos ou de terceiros, nem os comercializamos.
+    Podemos usar dados agregados e anonimizados para melhorar o serviço.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">11</span> Responsabilidade</h2>
+    <p>Respondemos por danos diretos comprovadamente causados por nós, limitados ao valor pago
+    nos 12 meses anteriores ao fato, ou a R$ 500,00 se não houver valor pago.</p>
+    <p>Não respondemos por decisões de contratação, por uso indevido da plataforma, por falhas
+    de terceiros, nem por lucros cessantes.</p>
+    <p>Nada aqui afasta responsabilidades que a lei não permita afastar.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">12</span> Encerramento</h2>
+    <p>Você pode encerrar a conta quando quiser, sem multa. Podemos encerrar em caso de violação
+    destes termos, de inadimplência ou de risco à plataforma.</p>
+    <p>Encerrada a relação, os dados sob sua controladoria são devolvidos ou eliminados, conforme
+    você determinar, nos prazos da <a href="/privacidade">Política de Privacidade</a>.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">13</span> Alterações</h2>
+    <p>Podemos atualizar estes termos. Mudanças relevantes são avisadas por e-mail com 30 dias de
+    antecedência. Continuar usando a plataforma após a vigência significa aceitar a nova versão.</p>
+  </section>
+
+  <section>
+    <h2><span class="n">14</span> Lei aplicável e foro</h2>
+    <p>Estes termos são regidos pelas leis brasileiras. Fica eleito o foro da comarca de
+    <span class="fill">[comarca]</span> para dirimir controvérsias, com renúncia a qualquer outro.</p>
+    <p>Dúvidas: <a href="mailto:oi@contratai.net">oi@contratai.net</a>.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 Sinal7 Tecnologia e Inovação</span>
+    <span class="creditos">
+      <span class="dom">contratai.net</span>
+      <span class="sep" aria-hidden="true">·</span>
+      <a class="sinal7" href="https://sinal7.com.br">Sinal7</a>
+    </span>
+  </footer>
+
+</div>
+</body>
+</html>
