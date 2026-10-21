@@ -12,6 +12,7 @@ de candidatos por áudio no WhatsApp conduzidas por um agente de IA.
 | `index.html` | Landing page |
 | `privacidade.html` | Política de privacidade (LGPD) |
 | `hero.mp4` · `poster.jpg` | Vídeo da hero e seu quadro de pôster |
+| `promo.mp4` · `promo-poster.jpg` | Filme promocional de 1 min, aberto em modal |
 | `recrutadora.jpg` | Foto da seção do painel |
 | `logo-claro.png` · `logo-escuro.png` | Logo, uma versão por tema |
 | `mic.png` | Favicon |
@@ -45,3 +46,10 @@ O painel da aplicação vive separado, em `app.contratai.net`.
 - **O âmbar é exclusivo da voz** — onda de áudio e etiqueta de transcrição. Em dois
   tons, porque o que funciona sobre a bolha verde não tem contraste sobre branco.
 - **A paleta sai do logo**, com os verdes extraídos dos pixels do arquivo original.
+- **O filme é self-hosted, não embed do YouTube.** Um embed carregaria
+  rastreamento de terceiros antes de qualquer consentimento, o que contradiz a
+  política de privacidade e teria que ser declarado lá.
+- **São 13 MB, então ele só entra na rede depois do clique** (`preload="none"`
+  e `src` vazio). Carregar antes seria peso morto em toda visita, e boa parte do
+  público abre no celular com dados móveis. O modal também pausa o vídeo da hero
+  enquanto está aberto: dois vídeos juntos competem por atenção e por CPU.

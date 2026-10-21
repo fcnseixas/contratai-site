@@ -284,6 +284,63 @@
     border:1px solid var(--slab-line);aspect-ratio:4/3;background:var(--bubble-bot);
   }
   .film video{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* ---------- convite para o filme ---------- */
+  /* O rótulo vai no TOPO: o card da conversa sobrepõe o rodapé do vídeo e
+     engolia o texto. O play também sobe, para ficar centrado na área que
+     continua visível, não na do quadro inteiro. */
+  .playfilm{
+    position:absolute;inset:0;width:100%;border:0;cursor:pointer;
+    font:inherit;color:#fff;padding:14px 16px;
+    display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;gap:0;
+    background:linear-gradient(to bottom, rgba(10,32,24,.55) 0%, rgba(10,32,24,.1) 38%, rgba(10,32,24,0) 62%);
+  }
+  .playfilm:focus-visible{outline:3px solid var(--voice);outline-offset:-3px}
+  .playfilm-ic{
+    position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);
+    width:62px;height:62px;border-radius:999px;display:grid;place-items:center;
+    background:rgba(255,255,255,.92);box-shadow:0 8px 28px rgba(10,32,24,.4);
+  }
+  .playfilm-ic svg{width:26px;height:26px;fill:var(--brand);margin-left:3px}
+  .playfilm-tx{
+    font-size:14px;font-weight:600;letter-spacing:.01em;
+    text-shadow:0 1px 10px rgba(10,32,24,.55);
+  }
+  .playfilm-tx b{font-weight:500;opacity:.82}
+  @media (prefers-reduced-motion: no-preference){
+    .playfilm-ic{transition:transform .18s ease, background-color .18s ease}
+    .playfilm:hover .playfilm-ic{transform:translate(-50%,-50%) scale(1.07);background:#fff}
+  }
+  @media (max-width:860px){
+    /* Sem o card por cima, o play volta ao centro do quadro. */
+    .playfilm-ic{top:50%}
+  }
+
+  /* ---------- modal do filme ---------- */
+  .vmodal{
+    border:0;padding:0;background:transparent;
+    width:min(94vw, 1180px);max-width:94vw;
+    max-height:90vh;overflow:visible;
+  }
+  .vmodal::backdrop{background:rgba(6,18,14,.82)}
+  .vmodal video{
+    display:block;width:100%;height:auto;max-height:86vh;
+    border-radius:14px;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);
+  }
+  /* Dentro do quadro, não acima: fora dele o botão some da viewport em
+     tela baixa, e aí só resta o Esc — que nem todo mundo lembra. */
+  .vclose{
+    position:absolute;top:10px;right:10px;z-index:2;
+    width:38px;height:38px;border-radius:999px;cursor:pointer;
+    border:1px solid rgba(255,255,255,.3);background:rgba(6,18,14,.62);
+    display:grid;place-items:center;backdrop-filter:blur(4px);
+  }
+  .vclose svg{width:18px;height:18px;stroke:#fff;stroke-width:2;fill:none;stroke-linecap:round}
+  .vclose:hover{background:rgba(6,18,14,.85)}
+  .vclose:focus-visible{outline:2px solid var(--voice);outline-offset:2px}
+  @media (max-width:560px){
+    .playfilm-ic{width:52px;height:52px}
+  }
   .showcase .thread{
     position:relative;z-index:1;
     width:92%;margin:-58px 0 0 auto;
@@ -533,6 +590,16 @@
       <div class="showcase">
         <figure class="film">
           <video src="/hero.mp4" poster="/poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+          <!-- O loop da hero já era um teaser mudo; agora ele leva ao filme
+               inteiro. Assim o convite não disputa espaço com o CTA de criar
+               conta, que continua sendo a única ação primária da página. -->
+          <button class="playfilm" type="button" data-video-open
+                  aria-label="Assistir ao filme do contrataí, 1 minuto, com som">
+            <span class="playfilm-ic" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </span>
+            <span class="playfilm-tx">Ver o filme <b>1 min</b></span>
+          </button>
         </figure>
 
       <div class="thread" aria-label="Exemplo de entrevista conduzida no WhatsApp">
@@ -873,6 +940,61 @@
     else raiz.setAttribute('data-mode','dark');
     try{ localStorage.setItem('contratai-tema', escuro ? 'light' : 'dark'); }catch(e){}
     pintar();
+  });
+})();
+</script>
+
+<!-- O filme só é baixado quando alguém pede. São 13 MB: carregar antes
+     disso seria peso morto em toda visita, e boa parte do público abre no
+     celular com dados móveis. Daí `preload="none"` e o src vazio. -->
+<dialog class="vmodal" id="vmodal" aria-label="Filme do contrataí">
+  <button class="vclose" type="button" data-video-close aria-label="Fechar o filme">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <video id="vplayer" poster="/promo-poster.jpg" controls playsinline preload="none"></video>
+</dialog>
+
+<script>
+(function(){
+  var dlg=document.getElementById('vmodal'), vid=document.getElementById('vplayer');
+  if(!dlg||!vid) return;
+  var hero=document.querySelector('.film video'), heroTocava=false;
+
+  function abrir(){
+    /* Só agora o arquivo entra na rede. */
+    if(!vid.getAttribute('src')) vid.setAttribute('src','/promo.mp4');
+
+    /* Dois vídeos tocando juntos competem por atenção e por CPU. */
+    if(hero && !hero.paused){ heroTocava=true; hero.pause(); }
+
+    if(typeof dlg.showModal==='function') dlg.showModal();
+    else dlg.setAttribute('open','');
+
+    /* O clique do usuário autoriza o som: não precisa começar mudo. */
+    var p=vid.play(); if(p && p.catch) p.catch(function(){});
+  }
+
+  function fechar(){
+    if(dlg.open && typeof dlg.close==='function') dlg.close();
+    else { dlg.removeAttribute('open'); aoFechar(); }
+  }
+
+  function aoFechar(){
+    vid.pause();
+    if(hero && heroTocava){ heroTocava=false; var p=hero.play(); if(p&&p.catch) p.catch(function(){}); }
+  }
+
+  /* `dialog` já fecha no Esc sozinho e dispara este evento. */
+  dlg.addEventListener('close', aoFechar);
+
+  /* Clique fora do vídeo fecha. O alvo é o próprio dialog só na área vazia. */
+  dlg.addEventListener('click', function(e){ if(e.target===dlg) fechar(); });
+
+  Array.prototype.forEach.call(document.querySelectorAll('[data-video-open]'), function(b){
+    b.addEventListener('click', abrir);
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-video-close]'), function(b){
+    b.addEventListener('click', fechar);
   });
 })();
 </script>
