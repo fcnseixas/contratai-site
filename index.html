@@ -58,6 +58,13 @@
     --voice-line:rgba(169,98,15,.26);
     --radius:14px;
     --maxw:1120px;
+    /* fundo da página — ver "ambiente" mais abaixo */
+    --aura-1:rgba(8,157,92,.36);
+    --aura-2:rgba(8,157,92,.2);
+    --dot:rgba(14,54,41,.17);
+    --halo:rgba(8,157,92,.36);
+    --onda-a:rgba(8,157,92,.24);
+    --onda-b:rgba(8,157,92,.08);
   }
   :root[data-mode="dark"]{
     --paper:#06120E;
@@ -83,6 +90,12 @@
     --voice-ink:#E0913A;
     --voice-soft:rgba(224,145,58,.09);
     --voice-line:rgba(224,145,58,.28);
+    --aura-1:rgba(18,184,108,.22);
+    --aura-2:rgba(18,184,108,.11);
+    --dot:rgba(230,240,234,.1);
+    --halo:rgba(18,184,108,.26);
+    --onda-a:rgba(18,184,108,.28);
+    --onda-b:rgba(18,184,108,.09);
   }
 
   *{box-sizing:border-box}
@@ -95,26 +108,71 @@
     line-height:1.55;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:20px}
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:20px;position:relative}
+
+  /* ---------- ambiente ----------
+     O branco liso deixava a página começar do nada. Duas camadas fixas, as
+     duas em CSS puro — nenhum byte a mais para baixar:
+
+     1. uma aurora verde no alto, do lado do vídeo, que é de onde o olho
+        entra na página;
+     2. uma malha de pontos que desaparece antes do fim da primeira tela, de
+        modo que o resto do site continua limpo como era.
+
+     As camadas são ancoradas no TOPO DO DOCUMENTO, não na viewport: presas à
+     tela elas acompanhariam a rolagem e o site inteiro ficaria pontilhado.
+     Assim o ambiente pertence à primeira tela e o resto da página segue
+     limpo. `z-index:-1` as mantém atrás de tudo e fora do alcance do mouse. */
+  body{position:relative}
+  body::before,
+  body::after,
+  .onda{
+    position:absolute;left:0;right:0;top:0;height:100vh;
+    z-index:-1;pointer-events:none;
+  }
+  body::before,
+  body::after{content:""}
+  body::before{
+    background:
+      radial-gradient(54% 46% at 80% -6%, var(--aura-1) 0%, transparent 66%),
+      radial-gradient(40% 36% at -4% 10%, var(--aura-2) 0%, transparent 68%),
+      radial-gradient(34% 30% at 46% 92%, var(--aura-2) 0%, transparent 70%);
+  }
+  body::after{
+    background-image:radial-gradient(circle, var(--dot) 1px, transparent 1px);
+    background-size:28px 28px;
+    /* o degradê corta a malha no fim da hero; sem ele a página inteira
+       ficaria quadriculada e o texto perderia sossego */
+    -webkit-mask-image:linear-gradient(to bottom, #000 0, rgba(0,0,0,.5) 46%, transparent 72%);
+    mask-image:linear-gradient(to bottom, #000 0, rgba(0,0,0,.5) 46%, transparent 72%);
+  }
+
+  /* A onda atravessa o rodapé da primeira tela: o produto é voz, e um blob
+     genérico não diria isso. Entra como MÁSCARA, não como imagem — assim a
+     cor sai da variável do tema e o mesmo arquivo serve claro e escuro.
+     Fica atrás do painel translúcido, que a desfoca: dá profundidade sem
+     disputar leitura com o texto. */
+  .onda{
+    background:linear-gradient(92deg, transparent, var(--onda-a) 34%, var(--onda-b) 96%);
+    /* a máscara fica no rodapé da primeira tela; o resto da camada é vazio */
+    -webkit-mask:url(/onda.svg) bottom/100% 19vh no-repeat;
+    mask:url(/onda.svg) bottom/100% 19vh no-repeat;
+  }
   h1,h2,h3{font-family:Archivo,system-ui,sans-serif;margin:0;text-wrap:balance;letter-spacing:-.03em;line-height:1.02}
   p{margin:0}
   a{color:inherit}
 
   /* ---------- nav ---------- */
-  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:22px}
+  /* O recuo encolhe na mesma medida em que o logo cresce: a faixa continua
+     com a altura de sempre, só a marca ocupa mais dela. */
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
   .brandline{display:flex;align-items:center;gap:11px}
   .mark{display:block;line-height:0}
-  .mark img{height:34px;width:auto;display:block}
+  .mark img{height:50px;width:auto;display:block}
   .mark .escuro{display:none}
   .mark.pe img{height:26px}
   :root[data-mode="dark"] .mark .claro{display:none}
   :root[data-mode="dark"] .mark .escuro{display:block}
-  .pill{
-    font-family:"IBM Plex Mono",monospace;font-size:10.5px;letter-spacing:.12em;
-    text-transform:uppercase;color:var(--brand);
-    border:1px solid var(--brand);border-radius:999px;padding:2.5px 9px;
-    line-height:1.4;
-  }
   .navdir{display:flex;align-items:center;gap:12px}
   .entrar{
     display:inline-flex;align-items:center;gap:7px;white-space:nowrap;
@@ -170,6 +228,21 @@
     border-radius:26px;
     margin-block:8px 72px;
     overflow:hidden;
+    position:relative;
+    /* o painel deixa de ser um retângulo colado no branco e passa a flutuar
+       sobre a aura */
+    box-shadow:0 40px 90px -46px var(--halo);
+  }
+  /* Translúcido para a aura atravessar o painel: sem isso ela só aparecia na
+     margem, e a primeira tela continuava branca onde mais importa. O recuo
+     fica atrás do `@supports` porque sem `backdrop-filter` o texto perderia
+     fundo sólido — aí vale mais o opaco de antes. */
+  @supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
+    .slab{
+      background-color:color-mix(in srgb, var(--slab) 72%, transparent);
+      -webkit-backdrop-filter:blur(16px) saturate(1.12);
+      backdrop-filter:blur(16px) saturate(1.12);
+    }
   }
   .hero{
     display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;
@@ -282,8 +355,42 @@
   .film{
     margin:0;position:relative;border-radius:18px;overflow:hidden;
     border:1px solid var(--slab-line);aspect-ratio:4/3;background:var(--bubble-bot);
+    /* o halo tira o quadro do branco e amarra ele ao verde do resto */
+    box-shadow:0 26px 60px -28px var(--halo);
   }
-  .film video{width:100%;height:100%;object-fit:cover;display:block}
+  /* Três pessoas diferentes no mesmo gesto — falando no WhatsApp. Um rosto
+     só dizia "um caso"; três dizem "qualquer candidato". Eles se revezam em
+     crossfade: os vídeos ficam empilhados e o que está visível é o `.on`. */
+  .film video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;display:block;opacity:0;
+  }
+  .film video.on{opacity:1}
+  @media (prefers-reduced-motion: no-preference){
+    .film video{transition:opacity 1.1s ease}
+  }
+
+  /* Três traços no alto, do lado oposto ao rótulo do filme: dizem que há mais
+     de um clipe e quanto falta do atual. Não são botões — ficam dentro da
+     área do `.playfilm`, e um clique ali tem que abrir o filme, não trocar de
+     vídeo. Daí `pointer-events:none`. */
+  .reeldots{
+    position:absolute;top:19px;right:16px;z-index:2;display:flex;gap:5px;
+    pointer-events:none;
+  }
+  .reeldots i{
+    display:block;width:16px;height:3px;border-radius:2px;
+    background:rgba(255,255,255,.36);overflow:hidden;
+  }
+  /* O preenchimento acompanha o tempo real do clipe, não um relógio à parte:
+     é o `timeupdate` do vídeo que escreve `--p`. */
+  .reeldots i::after{
+    content:"";display:block;height:100%;width:100%;
+    background:#fff;transform:scaleX(var(--p,0));transform-origin:left;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .reeldots i::after{transition:transform .25s linear}
+  }
 
   /* ---------- convite para o filme ---------- */
   /* O rótulo vai no TOPO: o card da conversa sobrepõe o rodapé do vídeo e
@@ -536,6 +643,8 @@
   })();
 </script>
 
+<div class="onda" aria-hidden="true"></div>
+
 <div class="wrap">
 
   <nav class="nav">
@@ -544,7 +653,6 @@
         <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
         <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
       </span>
-      <span class="pill">beta</span>
     </div>
     <div class="navdir">
       <a class="entrar" href="https://app.contratai.net">
@@ -589,7 +697,16 @@
 
       <div class="showcase">
         <figure class="film">
-          <video src="/hero.mp4" poster="/poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
+          <!-- Só o primeiro vem com `src`. Os outros dois entram na rede
+               depois que a página carrega: são ~520 KB que não podem
+               disputar banda com a primeira pintura. -->
+          <video class="on" src="/hero-1.mp4" poster="/poster.jpg"
+                 autoplay muted loop playsinline preload="auto"></video>
+          <video data-src="/hero-2.mp4" muted loop playsinline preload="none"></video>
+          <video data-src="/hero-3.mp4" muted loop playsinline preload="none"></video>
+          <div class="reeldots" id="reeldots" aria-hidden="true">
+            <i class="on"></i><i></i><i></i>
+          </div>
           <!-- O loop da hero já era um teaser mudo; agora ele leva ao filme
                inteiro. Assim o convite não disputa espaço com o CTA de criar
                conta, que continua sendo a única ação primária da página. -->
@@ -955,17 +1072,99 @@
 </dialog>
 
 <script>
+/* ---------- revezamento dos três clipes da hero ---------- */
+(function(){
+  var filmes = Array.prototype.slice.call(document.querySelectorAll('.film video'));
+  var dots = document.querySelectorAll('#reeldots i');
+  if (filmes.length < 2) return;
+
+  var FADE = 1.15;               /* segundos: igual à transição do CSS */
+  var atual = 0, trocando = false;
+
+  /* Quem pede menos movimento fica com um clipe só — como era antes. */
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  /* Quem manda na troca é o próprio clipe, pelo `timeupdate`, não um relógio
+     paralelo: um `setTimeout` desencontrado do vídeo corta a cena no meio, e
+     dois deles vivos ao mesmo tempo trocam duas vezes seguidas. */
+  function trocar(){
+    var prox = (atual + 1) % filmes.length;
+    var v = filmes[prox];
+
+    /* Ainda baixando: o `loop` repete o clipe atual e tentamos na volta
+       seguinte. Melhor repetir do que abrir um quadro preto. */
+    if (v.readyState < 2) return;
+
+    trocando = true;
+    var sai = filmes[atual];
+    try { v.currentTime = 0; } catch(e){}
+    var p = v.play(); if (p && p.catch) p.catch(function(){});
+    v.classList.add('on');
+    sai.classList.remove('on');
+
+    /* só para de decodificar depois que terminou de sumir */
+    setTimeout(function(){
+      if (!sai.classList.contains('on')){ sai.pause(); }
+      trocando = false;
+    }, FADE * 1000 + 120);
+
+    atual = prox;
+  }
+
+  filmes.forEach(function(v, i){
+    v.addEventListener('timeupdate', function(){
+      if (!v.classList.contains('on') || !v.duration) return;
+      if (dots[i]) dots[i].style.setProperty('--p', (v.currentTime / v.duration).toFixed(3));
+      if (!trocando && v.currentTime >= v.duration - FADE) trocar();
+    });
+    /* o traço do clipe que saiu volta a zero para a próxima vez */
+    v.addEventListener('pause', function(){
+      if (!v.classList.contains('on') && dots[i]) dots[i].style.setProperty('--p', 0);
+    });
+  });
+
+  /* Os outros dois só entram na rede depois que o resto da página chegou. */
+  function carregarResto(){
+    for (var i = 1; i < filmes.length; i++){
+      var v = filmes[i], fonte = v.getAttribute('data-src');
+      if (fonte && !v.getAttribute('src')){ v.preload = 'auto'; v.src = fonte; }
+    }
+  }
+  if (document.readyState === 'complete') setTimeout(carregarResto, 400);
+  else window.addEventListener('load', function(){ setTimeout(carregarResto, 400); });
+
+  function suspender(){ filmes.forEach(function(v){ v.pause(); }); }
+  function retomar(){
+    var p = filmes[atual].play(); if (p && p.catch) p.catch(function(){});
+  }
+
+  /* Vídeo fora da tela ou aba em segundo plano não precisa de CPU nenhuma. */
+  document.addEventListener('visibilitychange', function(){
+    if (document.hidden) suspender(); else retomar();
+  });
+  if (window.IntersectionObserver){
+    new IntersectionObserver(function(entradas){
+      entradas.forEach(function(e){ e.isIntersecting ? retomar() : suspender(); });
+    }, { threshold: 0.15 }).observe(document.querySelector('.film'));
+  }
+
+  /* O modal do filme precisa calar a hero enquanto estiver aberto. */
+  window.heroReel = { suspender: suspender, retomar: retomar };
+})();
+</script>
+
+<script>
 (function(){
   var dlg=document.getElementById('vmodal'), vid=document.getElementById('vplayer');
   if(!dlg||!vid) return;
-  var hero=document.querySelector('.film video'), heroTocava=false;
+  var heroTocava=false;
 
   function abrir(){
     /* Só agora o arquivo entra na rede. */
     if(!vid.getAttribute('src')) vid.setAttribute('src','/promo.mp4');
 
     /* Dois vídeos tocando juntos competem por atenção e por CPU. */
-    if(hero && !hero.paused){ heroTocava=true; hero.pause(); }
+    if(window.heroReel){ heroTocava=true; window.heroReel.suspender(); }
 
     if(typeof dlg.showModal==='function') dlg.showModal();
     else dlg.setAttribute('open','');
@@ -981,7 +1180,7 @@
 
   function aoFechar(){
     vid.pause();
-    if(hero && heroTocava){ heroTocava=false; var p=hero.play(); if(p&&p.catch) p.catch(function(){}); }
+    if(heroTocava && window.heroReel){ heroTocava=false; window.heroReel.retomar(); }
   }
 
   /* `dialog` já fecha no Esc sozinho e dispara este evento. */
