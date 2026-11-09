@@ -575,6 +575,19 @@
   .cell h3{font-size:17.5px;font-weight:700;letter-spacing:-.02em}
   .cell p{margin-top:9px;color:var(--muted);font-size:15px}
 
+  /* As três portas reaproveitam a célula do bloco de garantias — é a mesma
+     peça, com três colunas em vez de duas. A etiqueta de público usa o verde
+     da marca, nunca o âmbar: âmbar é só da voz. */
+  .portas{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+          border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:76px}
+  .portas .cell{padding:30px 26px}
+  .portas .quem{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--brand);margin-bottom:14px;
+  }
+  .portas .cell h3{font-size:19px}
+  .portas .cell p{margin-top:11px;font-size:15.5px;line-height:1.55}
+
   /* ---------- fecho ---------- */
   .close{
     background:var(--brand-soft);border-radius:22px;padding:52px 44px;
@@ -624,6 +637,7 @@
     .showcase .thread{width:100%;margin:-40px 0 0 0}
     .film{aspect-ratio:16/10}
     .edge{grid-template-columns:1fr}
+    .portas{grid-template-columns:1fr;margin-bottom:56px}
     .slab{border-radius:20px;margin-bottom:56px}
   }
   @media (max-width:520px){
@@ -674,11 +688,12 @@
     <div class="hero">
       <div>
         <p class="eyebrow">Entrevistas por voz no WhatsApp</p>
-        <h1>A triagem que leva vinte dias<br><em>termina numa hora.</em></h1>
+        <h1>As entrevistas acontecem.<br><em>Você só lê.</em></h1>
         <p class="lede">
-          Enquanto sua equipe ainda agenda a primeira conversa, o contrataí já entrevistou
-          todo mundo — por áudio, no WhatsApp, ao mesmo tempo.
-          <b>Você abre o painel e só decide quem avança.</b>
+          O agente entrevista por áudio no WhatsApp — um candidato ou duzentos, ao mesmo
+          tempo. Quando você abre o painel, as perguntas já foram feitas e cada resposta
+          está ali transcrita, com o áudio original ao lado.
+          <b>Você só decide quem avança.</b>
         </p>
         <div class="actions">
           <a class="btn btn-primary" href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
@@ -689,7 +704,7 @@
           As 10 primeiras entrevistas são por nossa conta.
         </p>
         <div class="facts">
-          <span>Centenas ao mesmo tempo</span>
+          <span>Sem agendar nada</span>
           <span>Sem app para o candidato</span>
           <span>Relatório em PDF</span>
         </div>
@@ -773,9 +788,9 @@
       junto com quem usa. Você fala direto com quem constrói.</p>
     </div>
     <div>
-      <strong>Feito para alto volume</strong>
-      <p>Varejo, supermercado, logística, food service, telemarketing, facilities
-      e construção — onde entra e sai gente o ano inteiro.</p>
+      <strong>Não é questão de tamanho</strong>
+      <p>Da consultoria de RH com dez vagas abertas ao dono de loja que contrata
+      três vezes no ano. A dor é a mesma: alguém tem que parar o dia para conversar.</p>
     </div>
   </section>
 
@@ -794,7 +809,7 @@
           <li>Alguém lê e filtra</li>
           <li>Convite, agendamento, confirmação</li>
           <li>Remarcação. Falta. Novo convite.</li>
-          <li>Trinta minutos de recrutador, por candidato, um de cada vez</li>
+          <li>Trinta minutos do seu dia, por candidato, um de cada vez</li>
         </ol>
         <div class="vs-time">dias até a primeira conversa</div>
       </div>
@@ -815,10 +830,10 @@
     <img src="/recrutadora.jpg" alt="Recrutadora no computador analisando entrevistas já concluídas" width="1000" height="1500">
     <div>
       <h2>Ninguém precisa entrevistar dez pessoas hoje.</h2>
-      <p>Quando o time abre o painel, as entrevistas já aconteceram. Estão ali: a pergunta,
+      <p>Quando você abre o painel, as entrevistas já aconteceram. Estão ali: a pergunta,
       a resposta transcrita e o áudio original de cada candidato.</p>
-      <p>O trabalho deixa de ser conduzir conversa e volta a ser o que o recrutador faz
-      melhor — escolher.</p>
+      <p>O trabalho deixa de ser conduzir conversa e volta a ser a única parte que
+      ninguém pode fazer por você — escolher.</p>
     </div>
     </div>
 
@@ -921,7 +936,39 @@
 
   <section>
     <div class="sec-head">
-      <h2>Feito para quem contrata em volume.</h2>
+      <h2>Três operações diferentes, a mesma hora de volta.</h2>
+      <p>O que elas têm em comum não é o tamanho — é não ter ninguém sobrando
+      para ficar na ligação.</p>
+    </div>
+
+    <div class="portas">
+      <div class="cell">
+        <p class="quem">Consultoria e agência de RH</p>
+        <h3>Dez vagas de clientes diferentes, cada uma com seu roteiro</h3>
+        <p>As entrevistas de todas elas acontecem em paralelo, no mesmo dia. Você recebe
+        a transcrição e o áudio de cada candidato, e o PDF sai pronto para ir ao seu
+        cliente com a sua análise — a leitura continua sendo sua.</p>
+      </div>
+      <div class="cell">
+        <p class="quem">Operação de alto volume</p>
+        <h3>Duzentos currículos numa vaga param de travar a semana</h3>
+        <p>Varejo, supermercado, logística, food service, telemarketing, facilities,
+        construção. Ninguém entra na fila de agendamento: todos são entrevistados ao
+        mesmo tempo, e o time abre o painel com o trabalho já feito.</p>
+      </div>
+      <div class="cell">
+        <p class="quem">Pequeno negócio, sem RH</p>
+        <h3>Três contratações no ano, e cada uma custa uma semana sua</h3>
+        <p>São doze candidatos, não duzentos — e ainda assim são doze ligações que
+        ninguém atende na hora que você pode. Você escreve as perguntas uma vez, manda
+        o link e volta a trabalhar. As respostas chegam enquanto você atende cliente.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <h2>O que não muda, seja uma vaga ou cinquenta.</h2>
     </div>
 
     <div class="edge">
@@ -946,8 +993,9 @@
 
   <section class="close" id="contato">
     <div>
-      <h2>Comece pela sua vaga mais concorrida.</h2>
-      <p>Aquela que recebe duzentos currículos e trava a semana do time.</p>
+      <h2>Comece pela vaga que você está adiando.</h2>
+      <p>Aquela que você já sabe que vai dar trabalho — tenha ela duzentos candidatos
+      ou doze.</p>
       <p class="oferta">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
         As 10 primeiras entrevistas são por nossa conta.
