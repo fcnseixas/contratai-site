@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Candidato que não aparece: por que remarcar não resolve · contratai</title>
+<meta name="description" content="A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.">
+<link rel="canonical" href="https://contratai.net/blog/candidato-que-nao-aparece">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Candidato que não aparece: por que remarcar não resolve · contratai">
+<meta property="og:description" content="A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.">
+<meta property="og:url" content="https://contratai.net/blog/candidato-que-nao-aparece">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  img{max-width:100%}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
+    --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
+    --faixa:#0A1B14; --faixa-line:#15291F;
+  }
+
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin-inline:auto;padding-inline:20px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+  .mark img{height:34px;width:auto;display:block}
+  .mark .escuro{display:none}
+  :root[data-mode="dark"] .mark .claro{display:none}
+  :root[data-mode="dark"] .mark .escuro{display:block}
+  .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
+  .navdir a{color:var(--muted);text-decoration:none}
+  .navdir a:hover{color:var(--ink)}
+
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin:0 0 13px;
+  }
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(30px,4.6vw,43px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.12;margin:0}
+  .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
+  .meta{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);
+        font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
+
+  .topo{padding-block:42px 36px}
+
+  article{padding-bottom:40px}
+  article h2{font-family:"Archivo",sans-serif;font-size:25px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:42px 0 0}
+  article h3{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:32px 0 0}
+  article p{margin:17px 0 0}
+  article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
+  article li{padding-left:3px}
+  article a{color:var(--brand-bright);text-underline-offset:3px}
+  article code{font-family:"IBM Plex Mono",monospace;font-size:.9em;
+               background:var(--faixa);border:1px solid var(--faixa-line);
+               border-radius:5px;padding:1px 5px}
+  article hr{margin:38px 0 0;border:0;border-top:1px solid var(--line)}
+  article blockquote{margin:24px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--brand);
+                     color:var(--ink);font-size:17.5px}
+  article blockquote p{margin:0}
+  article table{width:100%;margin-top:22px;border-collapse:collapse;font-size:15px}
+  article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+                        vertical-align:top}
+  article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
+             letter-spacing:.07em;color:var(--muted)}
+
+  .lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .lista li{border-bottom:1px solid var(--line)}
+  .lista a{display:block;padding:24px 2px;text-decoration:none;color:inherit}
+  .lista a:hover h2{color:var(--brand-bright)}
+  .lista .quando{font-family:"IBM Plex Mono",monospace;font-size:12px;
+                 letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .lista h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+            letter-spacing:-.02em;line-height:1.25;margin:9px 0 0}
+  .lista p{margin:8px 0 0;color:var(--muted);font-size:15.5px}
+
+  .chamada{
+    margin-top:46px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    border-radius:var(--radius);padding:28px 26px;
+  }
+  .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
+                  font-weight:700;letter-spacing:-.02em}
+  .chamada p{margin:9px 0 0;color:var(--muted);font-size:15.5px}
+  .chamada a{display:inline-block;margin-top:16px;background:var(--brand);color:#fff;
+             text-decoration:none;font-weight:600;font-size:15px;
+             padding:11px 18px;border-radius:10px}
+
+  footer{display:flex;justify-content:space-between;align-items:center;gap:16px;
+         flex-wrap:wrap;margin-top:48px;padding-block:28px 40px;
+         border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+  footer nav{display:flex;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    .topo{padding-block:30px 26px}
+    article h2{margin-top:34px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="mark" href="/" aria-label="contratai, página inicial">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <div class="navdir">
+      <a href="/blog">Blog</a>
+      <a href="/">O produto</a>
+      <a href="https://app.contratai.net">Entrar</a>
+    </div>
+  </nav>
+
+  <header class="topo">
+    <p class="kicker">Triagem e seleção</p>
+    <h1>Candidato que não aparece: por que remarcar não resolve</h1>
+    <p class="resumo">A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.</p>
+    <p class="meta">15 de novembro de 2026</p>
+  </header>
+
+  <article>
+      <p>Toda operação que contrata com frequência conhece a cena. A vaga abriu, os currículos chegaram, alguém separou os dez melhores, mandou convite, confirmou no dia anterior. E na hora marcada, três não aparecem.</p>
+      <p>A reação natural é tratar isso como problema do candidato. Falta de compromisso, falta de educação, "não queria tanto assim a vaga". Às vezes é. Na maior parte das vezes, não é — e insistir nessa leitura faz você consertar a coisa errada.</p>
+      <h2>Por que a pessoa falta</h2>
+      <p>Três motivos aparecem quase sempre, e nenhum deles é desinteresse.</p>
+      <p><strong>Ela está trabalhando.</strong> O candidato mais disputado para uma vaga operacional costuma ser justamente quem já está empregado. Para ir à sua entrevista das 14h ele precisa inventar uma consulta médica, pedir para trocar de turno ou perder meio dia de trabalho. Isso tem custo real, e ele paga esse custo antes de saber se a sua vaga vale a pena.</p>
+      <p><strong>O deslocamento custa dinheiro.</strong> Duas conduções para uma conversa de trinta minutos é uma decisão econômica, não emocional. Quando a vaga é de salário inicial, o valor da passagem pesa proporcionalmente mais.</p>
+      <p><strong>Ele está em outros processos.</strong> A mesma pessoa que você chamou foi chamada por mais três empresas na mesma semana. Quem marcar primeiro, ou quem responder mais rápido, leva. A sua entrevista de quinta compete com uma oferta que pode sair na terça.</p>
+      <p>Repare no que os três têm em comum: <strong>o problema é a hora marcada</strong>, não a conversa. O candidato não se recusou a ser entrevistado. Ele se recusou — ou foi impedido — a estar num lugar específico num horário específico.</p>
+      <h2>O que normalmente se tenta</h2>
+      <p><strong>Lembrete no dia anterior.</strong> Ajuda, e vale fazer. Mas um lembrete não cria tempo livre na agenda de quem está trabalhando; ele só antecipa o cancelamento, o que já é melhor que o silêncio.</p>
+      <p><strong>Confirmação obrigatória.</strong> Transfere o trabalho para o recrutador, que agora persegue confirmação de dez pessoas. E confirmação não é comparecimento: muita gente confirma de boa-fé na segunda e não consegue sair na quinta.</p>
+      <p><strong>Chamar mais gente do que cabe.</strong> O overbooking funciona em média e falha no caso individual — na semana em que todo mundo aparece, você tem fila de espera e uma sala cheia de gente irritada. Além disso, só funciona se você tiver volume de candidatos para desperdiçar.</p>
+      <p>Nenhuma das três é errada. Todas são paliativos para a mesma causa, que continua intacta: a conversa exige sincronia.</p>
+      <h2>O que muda quando não há hora marcada</h2>
+      <p>Quando a entrevista deixa de ter horário, a falta deixa de existir como categoria. Não há a que faltar. O candidato responde às perguntas no intervalo do almoço, no ônibus, depois que as crianças dormem.</p>
+      <p>Três efeitos práticos:</p>
+      <ul><li><strong>O funil para de encolher no meio.</strong> Quem entra, termina — ou desiste no meio, o que também é informação, e mais honesta que um "não compareceu".</li><li><strong>Todos respondem às mesmas perguntas.</strong> Entrevista marcada, conduzida por pessoas diferentes em dias diferentes, não é comparável de verdade. Roteiro fixo é comparável.</li><li><strong>O primeiro contato deixa de ser gargalo.</strong> Você não entrevista dez pessoas em sequência; você lê dez entrevistas quando quiser.</li></ul>
+      <h2>O que você perde — e isso é real</h2>
+      <p>Não vale fingir que é só ganho.</p>
+      <p>Você perde a leitura do improviso ao vivo: a repergunta que nasce de uma hesitação, o silêncio que diz alguma coisa, o encadeamento que só existe quando duas pessoas estão na mesma conversa. Perde também o começo do vínculo — o candidato que saiu de uma boa conversa com você chega diferente na etapa seguinte.</p>
+      <p>A conclusão razoável não é trocar uma coisa pela outra. É <strong>tirar a sincronia da primeira etapa</strong>, onde ela custa caro e entrega pouco, e guardá-la para a etapa em que a conversa humana decide alguma coisa. Ninguém precisa de hora marcada para descobrir se o candidato tem CNH ou disponibilidade de turno.</p>
+      <h2>O que registrar, de qualquer jeito</h2>
+      <p>Mudar o formato não muda a obrigação. Independentemente de a entrevista ser ao vivo ou assíncrona:</p>
+      <ul><li>Diga ao candidato, no começo, que a conversa está sendo registrada — e, se houver automação conduzindo, que não é uma pessoa do outro lado.</li><li>Guarde o que foi efetivamente dito, não só a sua interpretação do que foi dito. Resumo é apoio de leitura; a palavra do candidato é o registro.</li><li>Tenha prazo de descarte definido e cumprido, e saiba responder quanto tempo você guarda e por quê.</li><li>Use critério declarado na vaga. Avaliar por requisito que você publicou é defensável; avaliar por impressão que você não escreveu em lugar nenhum, não.</li></ul>
+      <p>Isso vale para processo com planilha e vale para processo com ferramenta. A diferença é só quanto trabalho dá.</p>
+      <h2>O teste honesto</h2>
+      <p>Pega a sua última vaga e separa dois números: quantas pessoas você convidou para a primeira conversa, e quantas efetivamente conversaram com você.</p>
+      <p>Se a distância entre os dois for pequena, o seu processo está saudável e esse texto não é para você. Se for grande, o problema não vai se resolver com um lembrete melhor — porque nunca foi sobre lembrar.</p>
+
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>
+  </article>
+
+  <footer>
+    <span>contratai.net</span>
+    <nav>
+      <a href="/">O produto</a>
+      <a href="/blog">Blog</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos</a>
+    </nav>
+  </footer>
+
+</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BlogPosting",
+ "headline": "Candidato que não aparece: por que remarcar não resolve",
+ "description": "A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.",
+ "datePublished": "2026-11-15",
+ "inLanguage": "pt-BR",
+ "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://contratai.net/blog/candidato-que-nao-aparece"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "contratai",
+  "url": "https://contratai.net/"
+ }
+}
+</script>
+</body>
+</html>

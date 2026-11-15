@@ -11,6 +11,9 @@ de candidatos por áudio no WhatsApp conduzidas por um agente de IA.
 |---|---|
 | `index.html` | Landing page |
 | `privacidade.html` | Política de privacidade (LGPD) |
+| `blog.html` · `blog/*.html` | Blog — **gerados**, não editar à mão |
+| `conteudo/*.md` | Os posts, em Markdown. É daqui que se escreve |
+| `gerar-blog.py` | O gerador |
 | `hero-1.mp4` · `hero-2.mp4` · `hero-3.mp4` · `poster.jpg` | Os três clipes que se revezam na hero e o pôster do primeiro |
 | `onda.svg` | Onda de voz do fundo — entra como máscara, não como imagem |
 | `promo.mp4` · `promo-poster.jpg` | Filme promocional de 1 min, aberto em modal |
@@ -19,8 +22,9 @@ de candidatos por áudio no WhatsApp conduzidas por um agente de IA.
 | `mic.png` | Favicon |
 | `og.jpg` | Imagem de compartilhamento (1200×630) |
 
-Site estático, sem build. HTML, CSS e JavaScript escritos à mão, sem dependências
-além das fontes do Google Fonts.
+Site estático. HTML, CSS e JavaScript escritos à mão, sem dependências além das
+fontes do Google Fonts. O blog tem um passo de geração, descrito abaixo, mas a
+saída dele é HTML puro como o resto.
 
 ## Rodar localmente
 
@@ -29,6 +33,41 @@ python3 -m http.server 8000
 ```
 
 E abrir <http://localhost:8000>.
+
+## Blog
+
+Escrever um post é criar um arquivo em `conteudo/`, com o nome mandando na data
+e na URL:
+
+```
+conteudo/2026-11-15-candidato-que-nao-aparece.md   →   /blog/candidato-que-nao-aparece
+```
+
+Com este cabeçalho:
+
+```markdown
+---
+titulo: Candidato que não aparece: por que remarcar não resolve
+resumo: Uma frase. Vira a descrição na busca e o texto do card no índice.
+categoria: Triagem e seleção
+---
+```
+
+`titulo` e `resumo` são obrigatórios; `categoria` é opcional. Depois:
+
+```bash
+python3 gerar-blog.py
+```
+
+Isso reescreve `blog.html`, `blog/<slug>.html` e o `sitemap.xml`. **Os arquivos
+gerados são commitados** — a Vercel não roda nada, só serve. O `.vercelignore`
+mantém os fontes e o gerador fora do deploy.
+
+O Markdown aceito é um subconjunto deliberado: `##`/`###`, parágrafo, `**negrito**`,
+`*itálico*`, `` `código` ``, `[link](url)`, listas com `-` ou `1.`, `>` para citação,
+`---` para linha e tabela com cabeçalho. É o que um post de texto precisa, e evita
+que o site ganhe a primeira dependência de instalação — não há biblioteca de
+Markdown na máquina, e a saída tem que continuar sendo HTML estático.
 
 ## Deploy
 

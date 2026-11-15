@@ -1,0 +1,3 @@
+# Fontes do blog e o gerador não precisam subir: o HTML já vai pronto no repo.
+conteudo/
+gerar-blog.py
