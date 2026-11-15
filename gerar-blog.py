@@ -4,8 +4,12 @@ Gerador do blog do contrataí.
 
     python3 gerar-blog.py
 
-Lê os arquivos de `conteudo/*.md` e escreve `blog.html` (o índice) e
+Lê os arquivos de `conteudo/*.md` e escreve `blog/index.html` (o índice) e
 `blog/<slug>.html` (um por post), além de regravar o `sitemap.xml`.
+
+O índice é `blog/index.html` e não `blog.html` de propósito: com `cleanUrls`
+ligado os dois serviriam em `/blog`, e eu não quero depender de qual deles a
+Vercel escolhe para desempatar.
 
 Por que um gerador e não um framework: o site é estático e escrito à mão, e
 continua assim — a saída daqui é HTML puro, sem runtime, sem hidratação, sem
@@ -478,9 +482,9 @@ def main():
             f.write(pagina_post(p))
         print("  blog/%s.html" % p["slug"])
 
-    with open(os.path.join(RAIZ, "blog.html"), "w", encoding="utf-8") as f:
+    with open(os.path.join(SAIDA, "index.html"), "w", encoding="utf-8") as f:
         f.write(pagina_indice(posts))
-    print("  blog.html")
+    print("  blog/index.html")
 
     gravar_sitemap(posts)
     print("  sitemap.xml")
