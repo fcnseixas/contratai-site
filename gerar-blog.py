@@ -24,6 +24,7 @@ A ordem dentro da categoria sai do campo `ordem` do front matter.
 """
 
 import html
+import io
 import json
 import os
 import re
@@ -220,11 +221,13 @@ ESTILO = """
     --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
     --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
     --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+    --shadow:rgba(14,54,41,.13);
   }
   :root[data-mode="dark"]{
     --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
     --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
     --faixa:#0A1B14; --faixa-line:#15291F;
+    --shadow:rgba(0,0,0,.45);
   }
 
   body{
@@ -242,6 +245,48 @@ ESTILO = """
   .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
   .navdir a{color:var(--muted);text-decoration:none}
   .navdir a:hover{color:var(--ink)}
+
+  /* Menu dos guias: abre no hover e no `:focus-within`, para o teclado também
+     alcançar. O gatilho continua sendo link para /blog — o menu é atalho, não
+     a única porta, e por isso some no celular, onde hover não existe. */
+  .menu{position:relative}
+  .megapanel{
+    position:absolute;top:100%;right:0;z-index:40;
+    padding-top:12px;        /* ponte transparente: o mouse atravessa sem fechar */
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease,transform .16s ease,visibility 0s .16s;
+  }
+  .menu:hover .megapanel,
+  .menu:focus-within .megapanel{
+    opacity:1;visibility:visible;transform:none;
+    transition:opacity .16s ease,transform .16s ease,visibility 0s;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .megapanel,.menu:hover .megapanel,.menu:focus-within .megapanel{transition:none}
+  }
+  .megainner{
+    /* Largura explícita: o painel é `position:absolute` e encolhe para caber no
+       gatilho, que tem ~40px — sem isso as colunas vão a zero e o menu vira uma
+       tira vertical. */
+    width:688px;max-width:calc(100vw - 48px);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;box-shadow:0 30px 64px -32px var(--shadow);
+  }
+  .megacol h4{
+    margin:0 0 12px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--brand);font-weight:500;
+  }
+  .megacol ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .megacol a{color:var(--muted);text-decoration:none;font-size:13.5px;line-height:1.35;display:block}
+  .megacol a:hover{color:var(--brand-bright)}
+  .megatodos{
+    grid-column:1/-1;padding-top:15px;border-top:1px solid var(--line);
+    font-size:13.5px;font-weight:600;
+  }
+  .megatodos a{color:var(--brand-bright);text-decoration:none}
+  .megatodos a:hover{text-decoration:underline;text-underline-offset:3px}
+  @media (max-width:900px){ .megapanel{display:none} }
 
   .kicker{
     font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
@@ -355,7 +400,7 @@ MOLDE = """<!doctype html>
       <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
     </a>
     <div class="navdir">
-      <a href="/blog">Guias</a>
+{{MENU}}
       <a href="/">O produto</a>
       <a href="https://app.contratai.net">Entrar</a>
     </div>
@@ -388,9 +433,10 @@ CHAMADA = """
       </div>"""
 
 
-def montar(titulo_aba, resumo, url, corpo, og_tipo="article", schema=""):
+def montar(titulo_aba, resumo, url, corpo, menu, og_tipo="article", schema=""):
     pagina = MOLDE
-    for chave, valor in (("{{ESTILO}}", ESTILO), ("{{TITULO_ABA}}", titulo_aba),
+    for chave, valor in (("{{ESTILO}}", ESTILO), ("{{MENU}}", menu),
+                         ("{{TITULO_ABA}}", titulo_aba),
                          ("{{RESUMO}}", html.escape(resumo, quote=True)),
                          ("{{URL}}", url), ("{{OG_TIPO}}", og_tipo),
                          ("{{CORPO}}", corpo), ("{{SCHEMA}}", schema)):
@@ -398,7 +444,52 @@ def montar(titulo_aba, resumo, url, corpo, og_tipo="article", schema=""):
     return pagina
 
 
-def pagina_post(post, irmaos):
+def menu_html(posts):
+    """
+    O mega-menu, montado a partir dos próprios textos. Existe uma vez só aqui e
+    é escrito nas páginas do blog e na landing — senão todo texto novo viraria
+    uma edição manual em dezessete arquivos, e um dia alguém esqueceria um.
+    """
+    colunas = []
+    for nome, _ in CATEGORIAS:
+        daqui = [p for p in posts if p["categoria"] == nome]
+        if not daqui:
+            continue
+        itens = "".join(
+            '\n            <li><a href="/blog/%s">%s</a></li>'
+            % (p["slug"], html.escape(p["titulo"], quote=False)) for p in daqui)
+        colunas.append("""        <div class="megacol">
+          <h4>%s</h4>
+          <ul>%s
+          </ul>
+        </div>""" % (html.escape(nome, quote=False), itens))
+
+    return """      <div class="menu">
+        <a class="navlink" href="/blog">Guias</a>
+        <div class="megapanel">
+          <div class="megainner">
+%s
+            <div class="megatodos"><a href="/blog">Ver todos os guias &rarr;</a></div>
+          </div>
+        </div>
+      </div>""" % "\n".join(colunas)
+
+
+def injetar_no_index(menu):
+    """Escreve o menu na landing, entre os marcadores."""
+    caminho = os.path.join(RAIZ, "index.html")
+    s = io.open(caminho, encoding="utf-8").read()
+    ini, fim = "<!-- menu:inicio -->", "<!-- menu:fim -->"
+    a, b = s.find(ini), s.find(fim)
+    if a == -1 or b == -1:
+        raise ValueError("index.html: marcadores `menu:inicio`/`menu:fim` não encontrados")
+    novo = s[:a] + ini + "\n" + menu + "\n      " + s[b:]
+    if novo != s:
+        io.open(caminho, "w", encoding="utf-8").write(novo)
+        print("  index.html (menu atualizado)")
+
+
+def pagina_post(post, irmaos, menu):
     url = "%s/blog/%s" % (SITE, post["slug"])
 
     vizinhos = ""
@@ -439,10 +530,10 @@ def pagina_post(post, irmaos):
     }, ensure_ascii=False, indent=1)
 
     return montar("%s · contratai" % post["titulo"], post["resumo"], url, corpo,
-                  schema=schema)
+                  menu, schema=schema)
 
 
-def pagina_indice(posts):
+def pagina_indice(posts, menu):
     grupos = []
     for nome, descricao in CATEGORIAS:
         daqui = [p for p in posts if p["categoria"] == nome]
@@ -475,7 +566,7 @@ def pagina_indice(posts):
     return montar("Guias · contratai",
                   "Triagem, entrevista, LGPD e tecnologia em processo seletivo — "
                   "escrito por quem constrói o contrataí.",
-                  SITE + "/blog", corpo, og_tipo="website")
+                  SITE + "/blog", corpo, menu, og_tipo="website")
 
 
 def gravar_sitemap(posts):
@@ -501,6 +592,8 @@ def main():
     ordem_cat = {nome: i for i, (nome, _) in enumerate(CATEGORIAS)}
     posts.sort(key=lambda p: (ordem_cat[p["categoria"]], p["ordem"], p["titulo"]))
 
+    menu = menu_html(posts)
+
     os.makedirs(SAIDA, exist_ok=True)
     gerados = {"index.html"}
     for p in posts:
@@ -509,11 +602,11 @@ def main():
         irmaos = [o for o in posts if o["categoria"] == p["categoria"] and o is not p][:4]
         nome = p["slug"] + ".html"
         with open(os.path.join(SAIDA, nome), "w", encoding="utf-8") as f:
-            f.write(pagina_post(p, irmaos))
+            f.write(pagina_post(p, irmaos, menu))
         gerados.add(nome)
 
     with open(os.path.join(SAIDA, "index.html"), "w", encoding="utf-8") as f:
-        f.write(pagina_indice(posts))
+        f.write(pagina_indice(posts, menu))
 
     # Texto renomeado ou apagado não pode ficar de pé no deploy anterior.
     for antigo in os.listdir(SAIDA):
@@ -521,6 +614,7 @@ def main():
             os.remove(os.path.join(SAIDA, antigo))
             print("  removido: blog/%s" % antigo)
 
+    injetar_no_index(menu)
     gravar_sitemap(posts)
     for nome, _ in CATEGORIAS:
         print("  %-28s %d" % (nome, sum(1 for p in posts if p["categoria"] == nome)))

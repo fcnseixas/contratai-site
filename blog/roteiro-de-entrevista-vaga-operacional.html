@@ -37,11 +37,13 @@
     --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
     --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
     --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+    --shadow:rgba(14,54,41,.13);
   }
   :root[data-mode="dark"]{
     --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
     --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
     --faixa:#0A1B14; --faixa-line:#15291F;
+    --shadow:rgba(0,0,0,.45);
   }
 
   body{
@@ -59,6 +61,48 @@
   .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
   .navdir a{color:var(--muted);text-decoration:none}
   .navdir a:hover{color:var(--ink)}
+
+  /* Menu dos guias: abre no hover e no `:focus-within`, para o teclado também
+     alcançar. O gatilho continua sendo link para /blog — o menu é atalho, não
+     a única porta, e por isso some no celular, onde hover não existe. */
+  .menu{position:relative}
+  .megapanel{
+    position:absolute;top:100%;right:0;z-index:40;
+    padding-top:12px;        /* ponte transparente: o mouse atravessa sem fechar */
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease,transform .16s ease,visibility 0s .16s;
+  }
+  .menu:hover .megapanel,
+  .menu:focus-within .megapanel{
+    opacity:1;visibility:visible;transform:none;
+    transition:opacity .16s ease,transform .16s ease,visibility 0s;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .megapanel,.menu:hover .megapanel,.menu:focus-within .megapanel{transition:none}
+  }
+  .megainner{
+    /* Largura explícita: o painel é `position:absolute` e encolhe para caber no
+       gatilho, que tem ~40px — sem isso as colunas vão a zero e o menu vira uma
+       tira vertical. */
+    width:688px;max-width:calc(100vw - 48px);
+    display:grid;grid-template-columns:repeat(3,1fr);gap:28px;
+    background:var(--surface);border:1px solid var(--line);border-radius:16px;
+    padding:24px 26px;box-shadow:0 30px 64px -32px var(--shadow);
+  }
+  .megacol h4{
+    margin:0 0 12px;font-family:"IBM Plex Mono",monospace;font-size:10.5px;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--brand);font-weight:500;
+  }
+  .megacol ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+  .megacol a{color:var(--muted);text-decoration:none;font-size:13.5px;line-height:1.35;display:block}
+  .megacol a:hover{color:var(--brand-bright)}
+  .megatodos{
+    grid-column:1/-1;padding-top:15px;border-top:1px solid var(--line);
+    font-size:13.5px;font-weight:600;
+  }
+  .megatodos a{color:var(--brand-bright);text-decoration:none}
+  .megatodos a:hover{text-decoration:underline;text-underline-offset:3px}
+  @media (max-width:900px){ .megapanel{display:none} }
 
   .kicker{
     font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
@@ -141,7 +185,44 @@
       <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
     </a>
     <div class="navdir">
-      <a href="/blog">Guias</a>
+      <div class="menu">
+        <a class="navlink" href="/blog">Guias</a>
+        <div class="megapanel">
+          <div class="megainner">
+        <div class="megacol">
+          <h4>Triagem e seleção</h4>
+          <ul>
+            <li><a href="/blog/candidato-que-nao-aparece">Candidato que não aparece: por que remarcar não resolve</a></li>
+            <li><a href="/blog/quantos-candidatos-entrevistar">Quantos candidatos entrevistar antes de decidir</a></li>
+            <li><a href="/blog/roteiro-de-entrevista-vaga-operacional">Roteiro de entrevista para vaga operacional: o que perguntar e o que cortar</a></li>
+            <li><a href="/blog/triagem-de-curriculo-vaga-de-volume">Triagem de currículo não funciona para vaga de volume</a></li>
+            <li><a href="/blog/reduzir-tempo-de-contratacao">Como reduzir o tempo de contratação sem baixar o nível</a></li>
+          </ul>
+        </div>
+        <div class="megacol">
+          <h4>IA no recrutamento</h4>
+          <ul>
+            <li><a href="/blog/ia-no-recrutamento-o-que-faz-e-o-que-nao">IA no recrutamento: o que faz bem, o que faz mal, o que não deveria fazer</a></li>
+            <li><a href="/blog/entrevista-conduzida-por-ia">Entrevista conduzida por IA: como funciona na prática</a></li>
+            <li><a href="/blog/score-de-candidato">Score de candidato: por que a nota que parece objetiva não é</a></li>
+            <li><a href="/blog/triagem-automatica-de-curriculo-vieses">Triagem automática de currículo: os vieses que ela herda</a></li>
+            <li><a href="/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh">O que perguntar a um fornecedor de IA para RH antes de assinar</a></li>
+          </ul>
+        </div>
+        <div class="megacol">
+          <h4>LGPD e dados de candidato</h4>
+          <ul>
+            <li><a href="/blog/por-quanto-tempo-guardar-curriculo">Por quanto tempo guardar currículo de candidato reprovado</a></li>
+            <li><a href="/blog/gravar-entrevista-lgpd">Gravar entrevista: o que a LGPD exige</a></li>
+            <li><a href="/blog/decisao-automatizada-art-20">Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD</a></li>
+            <li><a href="/blog/banco-de-talentos-lgpd">Banco de talentos e LGPD: como manter sem virar passivo</a></li>
+            <li><a href="/blog/pedido-de-exclusao-de-dados">Pedido de exclusão de dados por candidato: como responder</a></li>
+          </ul>
+        </div>
+            <div class="megatodos"><a href="/blog">Ver todos os guias &rarr;</a></div>
+          </div>
+        </div>
+      </div>
       <a href="/">O produto</a>
       <a href="https://app.contratai.net">Entrar</a>
     </div>

@@ -64,8 +64,16 @@ erro de digitação, não categoria nova. Para criar uma de verdade, editar
 python3 gerar-blog.py
 ```
 
-Isso reescreve `blog/index.html`, `blog/<slug>.html` e o `sitemap.xml`, e apaga
-do `blog/` o que não tem mais fonte. **Os arquivos gerados são commitados** — a
+Isso reescreve `blog/index.html`, `blog/<slug>.html` e o `sitemap.xml`, apaga
+do `blog/` o que não tem mais fonte, e **reescreve o mega-menu dentro do
+`index.html`**, entre os marcadores `<!-- menu:inicio -->` e `<!-- menu:fim -->`.
+Esse trecho da landing não se edita à mão — a próxima geração sobrescreve. É o
+que evita ter de repetir a lista de guias em dezessete arquivos a cada texto
+novo.
+
+O menu abre no `:hover` e no `:focus-within`, para o teclado também alcançar, e
+some abaixo de 900px, onde hover não existe — lá o "Guias" continua sendo um
+link comum para `/blog`. **Os arquivos gerados são commitados** — a
 Vercel não roda nada, só serve. O `.vercelignore` mantém os fontes e o gerador
 fora do deploy.
 
