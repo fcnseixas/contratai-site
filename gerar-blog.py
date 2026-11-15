@@ -4,38 +4,48 @@ Gerador do blog do contrataí.
 
     python3 gerar-blog.py
 
-Lê os arquivos de `conteudo/*.md` e escreve `blog/index.html` (o índice) e
-`blog/<slug>.html` (um por post), além de regravar o `sitemap.xml`.
+Lê `conteudo/*.md` e escreve `blog/index.html`, um `blog/<slug>.html` por texto
+e o `sitemap.xml`.
 
-O índice é `blog/index.html` e não `blog.html` de propósito: com `cleanUrls`
-ligado os dois serviriam em `/blog`, e eu não quero depender de qual deles a
-Vercel escolhe para desempatar.
+Duas decisões que explicam o resto do arquivo:
 
-Por que um gerador e não um framework: o site é estático e escrito à mão, e
-continua assim — a saída daqui é HTML puro, sem runtime, sem hidratação, sem
-nada para baixar além das fontes. E por que um Markdown próprio em vez de uma
-biblioteca: para o site não ganhar a primeira dependência de instalação. O
-subconjunto suportado está documentado em `converter()` e é o bastante para
-post de texto. Se um dia precisar de mais, trocar por `markdown` é meia hora.
+1. **Os textos não têm data.** São guias perenes, não notícia. Sem data na tela
+   e sem `datePublished` no schema, a biblioteca nunca parece abandonada e nada
+   é falso — datar no passado para simular cadência seria prova social
+   inventada, que é a regra que mantém número de cliente fictício fora da
+   landing. Também é o que a política de dados estruturados do Google cobra:
+   data declarada tem que ser data real.
 
-Nome do arquivo manda na URL e na data:  2026-11-15-slug-do-post.md
+2. **Markdown próprio, sem biblioteca.** Para o site não ganhar a primeira
+   dependência de instalação. O subconjunto está documentado em `converter()`.
+
+O nome do arquivo é a URL:  conteudo/slug-do-texto.md → /blog/slug-do-texto
+A ordem dentro da categoria sai do campo `ordem` do front matter.
 """
 
 import html
+import json
 import os
 import re
 import sys
-from datetime import date
 
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 ORIGEM = os.path.join(RAIZ, "conteudo")
 SAIDA = os.path.join(RAIZ, "blog")
 SITE = "https://contratai.net"
 
-MESES = ("janeiro fevereiro março abril maio junho julho agosto setembro "
-         "outubro novembro dezembro").split()
+# A ordem aqui é a ordem na página. Categoria fora desta lista para a geração,
+# em vez de aparecer solta no fim — nome errado no front matter é erro de
+# digitação, não uma categoria nova.
+CATEGORIAS = [
+    ("Triagem e seleção",
+     "O trabalho de reduzir muita gente a poucas pessoas, sem perder as certas."),
+    ("IA no recrutamento",
+     "O que a automação resolve de verdade, o que ela só parece resolver, e onde ela não deveria entrar."),
+    ("LGPD e dados de candidato",
+     "O que a lei cobra de quem guarda currículo, áudio e avaliação de gente."),
+]
 
-# Páginas fixas que entram no sitemap junto com os posts.
 FIXAS = [("/", "1.0"), ("/blog", "0.8"), ("/privacidade", "0.3"), ("/termos", "0.3")]
 
 
@@ -57,34 +67,44 @@ def ler(caminho):
             if ":" not in linha:
                 raise ValueError("%s: linha de front matter sem ':' → %r" % (caminho, linha))
             k, v = linha.split(":", 1)
-            meta[k.strip()] = v.strip()
+            v = v.strip()
+            # Título com dois-pontos precisa vir entre aspas para o `split`
+            # acima não cortar no lugar errado; as aspas são da sintaxe, não
+            # do texto, e não podem chegar à tela.
+            if len(v) >= 2 and v[0] == v[-1] and v[0] in "\"'":
+                v = v[1:-1]
+            meta[k.strip()] = v
         corpo = bruto[fim + 5:]
 
-    nome = os.path.basename(caminho)[:-3]
-    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})-(.+)$", nome)
-    if not m:
-        raise ValueError("%s: o nome precisa ser AAAA-MM-DD-slug.md" % caminho)
-    ano, mes, dia, slug = int(m.group(1)), int(m.group(2)), int(m.group(3)), m.group(4)
+    slug = os.path.basename(caminho)[:-3]
+    if not re.match(r"^[a-z0-9-]+$", slug):
+        raise ValueError("%s: o nome do arquivo vira URL — só minúsculas, números e hífen"
+                         % caminho)
 
-    for obrigatorio in ("titulo", "resumo"):
+    for obrigatorio in ("titulo", "resumo", "categoria"):
         if not meta.get(obrigatorio):
             raise ValueError("%s: falta `%s` no front matter" % (caminho, obrigatorio))
 
+    validas = [c for c, _ in CATEGORIAS]
+    if meta["categoria"] not in validas:
+        raise ValueError("%s: categoria %r não existe. As que existem: %s"
+                         % (caminho, meta["categoria"], ", ".join(validas)))
+
     return {
         "slug": slug,
-        "data": date(ano, mes, dia),
         "titulo": meta["titulo"],
         "resumo": meta["resumo"],
-        "categoria": meta.get("categoria", ""),
+        "categoria": meta["categoria"],
+        "ordem": int(meta.get("ordem", 99)),
         "corpo": corpo.strip(),
     }
 
 
-def por_extenso(d):
-    return "%d de %s de %d" % (d.day, MESES[d.month - 1], d.year)
-
-
 # ---------------------------------------------------------------- markdown
+
+def esc(txt):
+    return html.escape(txt, quote=False)
+
 
 def inline(txt):
     """Formatação dentro de uma linha. O texto já chega escapado."""
@@ -93,10 +113,6 @@ def inline(txt):
     txt = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", txt)
     txt = re.sub(r"(?<![*\w])\*([^*\n]+)\*(?!\*)", r"<em>\1</em>", txt)
     return txt
-
-
-def esc(txt):
-    return html.escape(txt, quote=False)
 
 
 def converter(md):
@@ -115,20 +131,17 @@ def converter(md):
     saida, i = [], 0
 
     while i < len(linhas):
-        linha = linhas[i]
-        bruta = linha.rstrip()
+        bruta = linhas[i].rstrip()
 
         if not bruta.strip():
             i += 1
             continue
 
-        # linha divisória
         if re.match(r"^-{3,}$", bruta.strip()):
             saida.append("<hr>")
             i += 1
             continue
 
-        # títulos
         m = re.match(r"^(#{2,4})\s+(.*)$", bruta)
         if m:
             n = len(m.group(1))
@@ -136,7 +149,6 @@ def converter(md):
             i += 1
             continue
 
-        # tabela — precisa de cabeçalho e da linha de traços
         if bruta.lstrip().startswith("|") and i + 1 < len(linhas) \
            and re.match(r"^\s*\|[\s:|-]+\|\s*$", linhas[i + 1]):
             def celulas(l):
@@ -148,13 +160,12 @@ def converter(md):
                 corpo.append(celulas(linhas[i]))
                 i += 1
             th = "".join("<th>%s</th>" % inline(esc(c)) for c in cab)
-            trs = "".join(
-                "<tr>%s</tr>" % "".join("<td>%s</td>" % inline(esc(c)) for c in linha_c)
-                for linha_c in corpo)
-            saida.append("<table><thead><tr>%s</tr></thead><tbody>%s</tbody></table>" % (th, trs))
+            trs = "".join("<tr>%s</tr>" % "".join("<td>%s</td>" % inline(esc(c)) for c in l)
+                          for l in corpo)
+            saida.append("<table><thead><tr>%s</tr></thead><tbody>%s</tbody></table>"
+                         % (th, trs))
             continue
 
-        # citação
         if bruta.lstrip().startswith(">"):
             partes = []
             while i < len(linhas) and linhas[i].lstrip().startswith(">"):
@@ -163,7 +174,6 @@ def converter(md):
             saida.append("<blockquote><p>%s</p></blockquote>" % inline(esc(" ".join(partes))))
             continue
 
-        # listas
         ordenada = re.match(r"^\s*\d+\.\s+", bruta)
         if ordenada or re.match(r"^\s*[-*]\s+", bruta):
             padrao = r"^\s*\d+\.\s+" if ordenada else r"^\s*[-*]\s+"
@@ -171,20 +181,22 @@ def converter(md):
             while i < len(linhas) and re.match(padrao, linhas[i].rstrip()):
                 itens.append(re.sub(padrao, "", linhas[i].rstrip()))
                 i += 1
-                # continuação indentada vira parte do mesmo item
                 while i < len(linhas) and linhas[i].startswith("  ") and linhas[i].strip() \
                       and not re.match(r"^\s*(\d+\.|[-*])\s+", linhas[i]):
                     itens[-1] += " " + linhas[i].strip()
                     i += 1
             tag = "ol" if ordenada else "ul"
-            lis = "".join("<li>%s</li>" % inline(esc(x)) for x in itens)
-            saida.append("<%s>%s</%s>" % (tag, lis, tag))
+            saida.append("<%s>%s</%s>"
+                         % (tag, "".join("<li>%s</li>" % inline(esc(x)) for x in itens), tag))
             continue
 
-        # parágrafo: junta até a linha em branco
+        # Parágrafo: junta até a linha em branco. A lista numerada só interrompe
+        # parágrafo se começar em `1.` — é a regra do CommonMark, e aqui ela não
+        # é purismo: sem isso, uma linha que quebra em "art. 20" e continua com
+        # "20. Se a resposta..." vira item de lista e parte o parágrafo em três.
         partes = []
         while i < len(linhas) and linhas[i].strip() \
-              and not re.match(r"^\s*(#{2,4}\s|>|[-*]\s|\d+\.\s|\||-{3,}$)", linhas[i].rstrip()):
+              and not re.match(r"^\s*(#{2,4}\s|>|[-*]\s|1\.\s|\||-{3,}$)", linhas[i].rstrip()):
             partes.append(linhas[i].strip())
             i += 1
         if partes:
@@ -195,9 +207,9 @@ def converter(md):
 
 # ---------------------------------------------------------------- modelo
 
-# Mesmos tokens do index.html e da privacidade. Ficam repetidos aqui porque o
-# projeto é de páginas autocontidas — uma folha externa custaria uma requisição
-# extra em toda visita para economizar repetição que o gerador já centraliza.
+# Mesmos tokens do index.html e da privacidade. Repetidos aqui porque o projeto
+# é de páginas autocontidas — uma folha externa custaria uma requisição a mais
+# em toda visita para economizar repetição que o gerador já centraliza.
 ESTILO = """
   html{color-scheme:light}
   html[data-mode="dark"]{color-scheme:dark}
@@ -235,18 +247,15 @@ ESTILO = """
     font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--brand);margin:0 0 13px;
   }
-  h1{font-family:"Archivo",sans-serif;font-size:clamp(30px,4.6vw,43px);font-weight:800;
-     letter-spacing:-.035em;line-height:1.12;margin:0}
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
   .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
-  .meta{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);
-        font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
-
-  .topo{padding-block:42px 36px}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
 
   article{padding-bottom:40px}
-  article h2{font-family:"Archivo",sans-serif;font-size:25px;font-weight:700;
-             letter-spacing:-.025em;line-height:1.2;margin:42px 0 0}
-  article h3{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:32px 0 0}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
   article p{margin:17px 0 0}
   article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
   article li{padding-left:3px}
@@ -264,18 +273,26 @@ ESTILO = """
   article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
              letter-spacing:.07em;color:var(--muted)}
 
-  .lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
   .lista li{border-bottom:1px solid var(--line)}
-  .lista a{display:block;padding:24px 2px;text-decoration:none;color:inherit}
-  .lista a:hover h2{color:var(--brand-bright)}
-  .lista .quando{font-family:"IBM Plex Mono",monospace;font-size:12px;
-                 letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .lista h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
-            letter-spacing:-.02em;line-height:1.25;margin:9px 0 0}
-  .lista p{margin:8px 0 0;color:var(--muted);font-size:15.5px}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
 
   .chamada{
-    margin-top:46px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
     border-radius:var(--radius);padding:28px 26px;
   }
   .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
@@ -293,8 +310,9 @@ ESTILO = """
   footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 
   @media (max-width:560px){
-    .topo{padding-block:30px 26px}
-    article h2{margin-top:34px}
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
   }
 """
 
@@ -337,7 +355,7 @@ MOLDE = """<!doctype html>
       <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
     </a>
     <div class="navdir">
-      <a href="/blog">Blog</a>
+      <a href="/blog">Guias</a>
       <a href="/">O produto</a>
       <a href="https://app.contratai.net">Entrar</a>
     </div>
@@ -349,7 +367,7 @@ MOLDE = """<!doctype html>
     <span>contratai.net</span>
     <nav>
       <a href="/">O produto</a>
-      <a href="/blog">Blog</a>
+      <a href="/blog">Guias</a>
       <a href="/privacidade">Privacidade</a>
       <a href="/termos">Termos</a>
     </nav>
@@ -360,6 +378,14 @@ MOLDE = """<!doctype html>
 </body>
 </html>
 """
+
+CHAMADA = """
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>"""
 
 
 def montar(titulo_aba, resumo, url, corpo, og_tipo="article", schema=""):
@@ -372,81 +398,81 @@ def montar(titulo_aba, resumo, url, corpo, og_tipo="article", schema=""):
     return pagina
 
 
-CHAMADA = """
-      <div class="chamada">
-        <strong>O agente entrevista; você só lê.</strong>
-        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
-        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
-        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
-      </div>"""
-
-
-def pagina_post(post):
+def pagina_post(post, irmaos):
     url = "%s/blog/%s" % (SITE, post["slug"])
-    titulo = html.escape(post["titulo"], quote=False)
+
+    vizinhos = ""
+    if irmaos:
+        itens = "".join('<li><a href="/blog/%s">%s</a></li>'
+                        % (o["slug"], html.escape(o["titulo"], quote=False))
+                        for o in irmaos)
+        vizinhos = ('\n    <div class="vizinhos">\n'
+                    '      <p class="kicker">Mais sobre %s</p>\n'
+                    '      <ul>%s</ul>\n    </div>'
+                    % (html.escape(post["categoria"], quote=False), itens))
 
     corpo = """  <header class="topo">
-    %s<h1>%s</h1>
+    <p class="kicker">%s</p>
+    <h1>%s</h1>
     <p class="resumo">%s</p>
-    <p class="meta">%s</p>
   </header>
 
   <article>
       %s
-%s
-  </article>""" % (
-        '<p class="kicker">%s</p>\n    ' % html.escape(post["categoria"], quote=False)
-        if post["categoria"] else "",
-        titulo,
-        html.escape(post["resumo"], quote=False),
-        por_extenso(post["data"]),
-        converter(post["corpo"]),
-        CHAMADA)
+%s%s
+  </article>""" % (html.escape(post["categoria"], quote=False),
+                   html.escape(post["titulo"], quote=False),
+                   html.escape(post["resumo"], quote=False),
+                   converter(post["corpo"]), CHAMADA, vizinhos)
 
-    # BlogPosting: o que faz o post aparecer como artigo datado na busca.
-    import json
+    # `Article` e não `BlogPosting`: guia perene, sem data de publicação. Schema
+    # sem `datePublished` é válido; com uma data inventada, não seria.
     schema = '<script type="application/ld+json">\n%s\n</script>' % json.dumps({
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
+        "@type": "Article",
         "headline": post["titulo"],
         "description": post["resumo"],
-        "datePublished": post["data"].isoformat(),
+        "articleSection": post["categoria"],
         "inLanguage": "pt-BR",
         "mainEntityOfPage": {"@type": "WebPage", "@id": url},
-        "publisher": {"@type": "Organization", "name": "contratai",
-                      "url": SITE + "/"},
+        "publisher": {"@type": "Organization", "name": "contratai", "url": SITE + "/"},
     }, ensure_ascii=False, indent=1)
 
     return montar("%s · contratai" % post["titulo"], post["resumo"], url, corpo,
-                  og_tipo="article", schema=schema)
+                  schema=schema)
 
 
 def pagina_indice(posts):
-    itens = []
-    for p in posts:
-        itens.append("""      <li><a href="/blog/%s">
-        <span class="quando">%s</span>
-        <h2>%s</h2>
-        <p>%s</p>
-      </a></li>""" % (p["slug"], por_extenso(p["data"]),
-                      html.escape(p["titulo"], quote=False),
-                      html.escape(p["resumo"], quote=False)))
+    grupos = []
+    for nome, descricao in CATEGORIAS:
+        daqui = [p for p in posts if p["categoria"] == nome]
+        if not daqui:
+            continue
+        itens = "".join("""
+      <li><a href="/blog/%s">
+        <strong>%s</strong>
+        <span>%s</span>
+      </a></li>""" % (p["slug"], html.escape(p["titulo"], quote=False),
+                      html.escape(p["resumo"], quote=False)) for p in daqui)
+        grupos.append("""  <section class="grupo">
+    <h2>%s</h2>
+    <p>%s</p>
+    <ul class="lista">%s
+    </ul>
+  </section>""" % (html.escape(nome, quote=False), html.escape(descricao, quote=False), itens))
 
     corpo = """  <header class="topo">
-    <p class="kicker">Blog</p>
+    <p class="kicker">Guias</p>
     <h1>Contratar dá trabalho.<br>Aqui a gente escreve sobre isso.</h1>
     <p class="resumo">Triagem, entrevista, LGPD e o que a tecnologia resolve —
     e o que ela não resolve — em processo seletivo.</p>
   </header>
 
-  <ul class="lista">
 %s
-  </ul>
-%s""" % ("\n".join(itens) if itens else
-         '      <li><p style="padding:26px 2px;color:var(--muted)">Em breve.</p></li>',
-         CHAMADA)
 
-    return montar("Blog · contratai",
+%s""" % ("\n\n".join(grupos), CHAMADA)
+
+    return montar("Guias · contratai",
                   "Triagem, entrevista, LGPD e tecnologia em processo seletivo — "
                   "escrito por quem constrói o contrataí.",
                   SITE + "/blog", corpo, og_tipo="website")
@@ -458,9 +484,8 @@ def gravar_sitemap(posts):
     for caminho, prio in FIXAS:
         linhas.append("  <url><loc>%s%s</loc><priority>%s</priority></url>" % (SITE, caminho, prio))
     for p in posts:
-        linhas.append('  <url><loc>%s/blog/%s</loc><lastmod>%s</lastmod>'
-                      '<priority>0.6</priority></url>'
-                      % (SITE, p["slug"], p["data"].isoformat()))
+        linhas.append("  <url><loc>%s/blog/%s</loc><priority>0.6</priority></url>"
+                      % (SITE, p["slug"]))
     linhas.append("</urlset>")
     with open(os.path.join(RAIZ, "sitemap.xml"), "w", encoding="utf-8") as f:
         f.write("\n".join(linhas) + "\n")
@@ -471,24 +496,35 @@ def main():
         print("sem pasta `conteudo/` — nada a fazer", file=sys.stderr)
         return 1
 
-    arquivos = sorted(x for x in os.listdir(ORIGEM) if x.endswith(".md"))
-    posts = [ler(os.path.join(ORIGEM, x)) for x in arquivos]
-    posts.sort(key=lambda p: p["data"], reverse=True)
+    posts = [ler(os.path.join(ORIGEM, x))
+             for x in sorted(x for x in os.listdir(ORIGEM) if x.endswith(".md"))]
+    ordem_cat = {nome: i for i, (nome, _) in enumerate(CATEGORIAS)}
+    posts.sort(key=lambda p: (ordem_cat[p["categoria"]], p["ordem"], p["titulo"]))
 
     os.makedirs(SAIDA, exist_ok=True)
+    gerados = {"index.html"}
     for p in posts:
-        destino = os.path.join(SAIDA, p["slug"] + ".html")
-        with open(destino, "w", encoding="utf-8") as f:
-            f.write(pagina_post(p))
-        print("  blog/%s.html" % p["slug"])
+        # Os outros da mesma categoria viram links no pé do texto: é o que
+        # distribui autoridade entre as páginas em vez de deixar cada uma sozinha.
+        irmaos = [o for o in posts if o["categoria"] == p["categoria"] and o is not p][:4]
+        nome = p["slug"] + ".html"
+        with open(os.path.join(SAIDA, nome), "w", encoding="utf-8") as f:
+            f.write(pagina_post(p, irmaos))
+        gerados.add(nome)
 
     with open(os.path.join(SAIDA, "index.html"), "w", encoding="utf-8") as f:
         f.write(pagina_indice(posts))
-    print("  blog/index.html")
+
+    # Texto renomeado ou apagado não pode ficar de pé no deploy anterior.
+    for antigo in os.listdir(SAIDA):
+        if antigo.endswith(".html") and antigo not in gerados:
+            os.remove(os.path.join(SAIDA, antigo))
+            print("  removido: blog/%s" % antigo)
 
     gravar_sitemap(posts)
-    print("  sitemap.xml")
-    print("%d post(s)." % len(posts))
+    for nome, _ in CATEGORIAS:
+        print("  %-28s %d" % (nome, sum(1 for p in posts if p["categoria"] == nome)))
+    print("%d textos em blog/, sitemap.xml regravado." % len(posts))
     return 0
 
 

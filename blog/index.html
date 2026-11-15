@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Blog · contratai</title>
+<title>Guias · contratai</title>
 <meta name="description" content="Triagem, entrevista, LGPD e tecnologia em processo seletivo — escrito por quem constrói o contrataí.">
 <link rel="canonical" href="https://contratai.net/blog">
 <link rel="icon" type="image/png" href="/mic.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="contratai">
 <meta property="og:locale" content="pt_BR">
-<meta property="og:title" content="Blog · contratai">
+<meta property="og:title" content="Guias · contratai">
 <meta property="og:description" content="Triagem, entrevista, LGPD e tecnologia em processo seletivo — escrito por quem constrói o contrataí.">
 <meta property="og:url" content="https://contratai.net/blog">
 <meta property="og:image" content="https://contratai.net/og.jpg">
@@ -64,18 +64,15 @@
     font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--brand);margin:0 0 13px;
   }
-  h1{font-family:"Archivo",sans-serif;font-size:clamp(30px,4.6vw,43px);font-weight:800;
-     letter-spacing:-.035em;line-height:1.12;margin:0}
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
   .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
-  .meta{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);
-        font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--muted)}
-
-  .topo{padding-block:42px 36px}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
 
   article{padding-bottom:40px}
-  article h2{font-family:"Archivo",sans-serif;font-size:25px;font-weight:700;
-             letter-spacing:-.025em;line-height:1.2;margin:42px 0 0}
-  article h3{font-size:19px;font-weight:700;letter-spacing:-.015em;margin:32px 0 0}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
   article p{margin:17px 0 0}
   article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
   article li{padding-left:3px}
@@ -93,18 +90,26 @@
   article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
              letter-spacing:.07em;color:var(--muted)}
 
-  .lista{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
   .lista li{border-bottom:1px solid var(--line)}
-  .lista a{display:block;padding:24px 2px;text-decoration:none;color:inherit}
-  .lista a:hover h2{color:var(--brand-bright)}
-  .lista .quando{font-family:"IBM Plex Mono",monospace;font-size:12px;
-                 letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .lista h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
-            letter-spacing:-.02em;line-height:1.25;margin:9px 0 0}
-  .lista p{margin:8px 0 0;color:var(--muted);font-size:15.5px}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
 
   .chamada{
-    margin-top:46px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
     border-radius:var(--radius);padding:28px 26px;
   }
   .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
@@ -122,8 +127,9 @@
   footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
 
   @media (max-width:560px){
-    .topo{padding-block:30px 26px}
-    article h2{margin-top:34px}
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
   }
 </style>
 
@@ -135,26 +141,100 @@
       <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
     </a>
     <div class="navdir">
-      <a href="/blog">Blog</a>
+      <a href="/blog">Guias</a>
       <a href="/">O produto</a>
       <a href="https://app.contratai.net">Entrar</a>
     </div>
   </nav>
 
   <header class="topo">
-    <p class="kicker">Blog</p>
+    <p class="kicker">Guias</p>
     <h1>Contratar dá trabalho.<br>Aqui a gente escreve sobre isso.</h1>
     <p class="resumo">Triagem, entrevista, LGPD e o que a tecnologia resolve —
     e o que ela não resolve — em processo seletivo.</p>
   </header>
 
-  <ul class="lista">
+  <section class="grupo">
+    <h2>Triagem e seleção</h2>
+    <p>O trabalho de reduzir muita gente a poucas pessoas, sem perder as certas.</p>
+    <ul class="lista">
       <li><a href="/blog/candidato-que-nao-aparece">
-        <span class="quando">15 de novembro de 2026</span>
-        <h2>Candidato que não aparece: por que remarcar não resolve</h2>
-        <p>A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.</p>
+        <strong>Candidato que não aparece: por que remarcar não resolve</strong>
+        <span>A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.</span>
       </a></li>
-  </ul>
+      <li><a href="/blog/quantos-candidatos-entrevistar">
+        <strong>Quantos candidatos entrevistar antes de decidir</strong>
+        <span>Não existe número certo. Existe um sinal claro de quando parar — e ele não é a quantidade de gente, é a repetição das respostas.</span>
+      </a></li>
+      <li><a href="/blog/roteiro-de-entrevista-vaga-operacional">
+        <strong>Roteiro de entrevista para vaga operacional: o que perguntar e o que cortar</strong>
+        <span>A maior parte das perguntas de entrevista não discrimina ninguém. Como montar um roteiro curto que separa candidato de verdade.</span>
+      </a></li>
+      <li><a href="/blog/triagem-de-curriculo-vaga-de-volume">
+        <strong>Triagem de currículo não funciona para vaga de volume</strong>
+        <span>Para vaga operacional, o currículo quase não distingue candidatos — e filtrar por ele descarta gente boa por motivo errado.</span>
+      </a></li>
+      <li><a href="/blog/reduzir-tempo-de-contratacao">
+        <strong>Como reduzir o tempo de contratação sem baixar o nível</strong>
+        <span>O processo não demora por causa das etapas. Demora por causa da espera entre elas — e é aí que dá para cortar sem perder critério.</span>
+      </a></li>
+    </ul>
+  </section>
+
+  <section class="grupo">
+    <h2>IA no recrutamento</h2>
+    <p>O que a automação resolve de verdade, o que ela só parece resolver, e onde ela não deveria entrar.</p>
+    <ul class="lista">
+      <li><a href="/blog/ia-no-recrutamento-o-que-faz-e-o-que-nao">
+        <strong>IA no recrutamento: o que faz bem, o que faz mal, o que não deveria fazer</strong>
+        <span>A divisão não é entre tarefas difíceis e fáceis. É entre o que tem resposta verificável e o que é julgamento sobre uma pessoa.</span>
+      </a></li>
+      <li><a href="/blog/entrevista-conduzida-por-ia">
+        <strong>Entrevista conduzida por IA: como funciona na prática</strong>
+        <span>O que muda para o candidato, o que muda para o recrutador, e as três coisas que precisam estar resolvidas antes de usar.</span>
+      </a></li>
+      <li><a href="/blog/score-de-candidato">
+        <strong>Score de candidato: por que a nota que parece objetiva não é</strong>
+        <span>Um número de 0 a 100 parece critério. Na prática ele esconde escolhas que ninguém declarou — e que você vai precisar explicar.</span>
+      </a></li>
+      <li><a href="/blog/triagem-automatica-de-curriculo-vieses">
+        <strong>Triagem automática de currículo: os vieses que ela herda</strong>
+        <span>O filtro automático não inventa preconceito. Ele reproduz o que estava nos dados e na regra, com velocidade e aparência de neutralidade.</span>
+      </a></li>
+      <li><a href="/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh">
+        <strong>O que perguntar a um fornecedor de IA para RH antes de assinar</strong>
+        <span>Oito perguntas que separam ferramenta que você consegue defender de ferramenta que vai virar problema seu.</span>
+      </a></li>
+    </ul>
+  </section>
+
+  <section class="grupo">
+    <h2>LGPD e dados de candidato</h2>
+    <p>O que a lei cobra de quem guarda currículo, áudio e avaliação de gente.</p>
+    <ul class="lista">
+      <li><a href="/blog/por-quanto-tempo-guardar-curriculo">
+        <strong>Por quanto tempo guardar currículo de candidato reprovado</strong>
+        <span>A LGPD não dá um número. Ela dá um critério — e é o critério que você precisa saber defender, não o prazo que alguém copiou da internet.</span>
+      </a></li>
+      <li><a href="/blog/gravar-entrevista-lgpd">
+        <strong>Gravar entrevista: o que a LGPD exige</strong>
+        <span>Gravar é legítimo e muitas vezes protege a empresa. O que não é opcional é avisar, ter fundamento e saber apagar.</span>
+      </a></li>
+      <li><a href="/blog/decisao-automatizada-art-20">
+        <strong>Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD</strong>
+        <span>O artigo é curto e mexe com quase toda ferramenta de triagem automática. O que ele garante ao candidato, e o que isso cobra de você.</span>
+      </a></li>
+      <li><a href="/blog/banco-de-talentos-lgpd">
+        <strong>Banco de talentos e LGPD: como manter sem virar passivo</strong>
+        <span>Guardar currículo de quem não foi contratado é legítimo. O que cria risco é guardar sem finalidade, sem prazo e sem a pessoa saber.</span>
+      </a></li>
+      <li><a href="/blog/pedido-de-exclusao-de-dados">
+        <strong>Pedido de exclusão de dados por candidato: como responder</strong>
+        <span>O pedido chega por e-mail, em uma linha, sem aviso. O que você tem que fazer, o que não precisa apagar, e o prazo para responder.</span>
+      </a></li>
+    </ul>
+  </section>
+
 
       <div class="chamada">
         <strong>O agente entrevista; você só lê.</strong>
@@ -167,7 +247,7 @@
     <span>contratai.net</span>
     <nav>
       <a href="/">O produto</a>
-      <a href="/blog">Blog</a>
+      <a href="/blog">Guias</a>
       <a href="/privacidade">Privacidade</a>
       <a href="/termos">Termos</a>
     </nav>

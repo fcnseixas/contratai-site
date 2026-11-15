@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD · contratai</title>
+<meta name="description" content="O artigo é curto e mexe com quase toda ferramenta de triagem automática. O que ele garante ao candidato, e o que isso cobra de você.">
+<link rel="canonical" href="https://contratai.net/blog/decisao-automatizada-art-20">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD · contratai">
+<meta property="og:description" content="O artigo é curto e mexe com quase toda ferramenta de triagem automática. O que ele garante ao candidato, e o que isso cobra de você.">
+<meta property="og:url" content="https://contratai.net/blog/decisao-automatizada-art-20">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  img{max-width:100%}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
+    --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
+    --faixa:#0A1B14; --faixa-line:#15291F;
+  }
+
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin-inline:auto;padding-inline:20px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+  .mark img{height:34px;width:auto;display:block}
+  .mark .escuro{display:none}
+  :root[data-mode="dark"] .mark .claro{display:none}
+  :root[data-mode="dark"] .mark .escuro{display:block}
+  .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
+  .navdir a{color:var(--muted);text-decoration:none}
+  .navdir a:hover{color:var(--ink)}
+
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin:0 0 13px;
+  }
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
+  .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
+
+  article{padding-bottom:40px}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
+  article p{margin:17px 0 0}
+  article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
+  article li{padding-left:3px}
+  article a{color:var(--brand-bright);text-underline-offset:3px}
+  article code{font-family:"IBM Plex Mono",monospace;font-size:.9em;
+               background:var(--faixa);border:1px solid var(--faixa-line);
+               border-radius:5px;padding:1px 5px}
+  article hr{margin:38px 0 0;border:0;border-top:1px solid var(--line)}
+  article blockquote{margin:24px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--brand);
+                     color:var(--ink);font-size:17.5px}
+  article blockquote p{margin:0}
+  article table{width:100%;margin-top:22px;border-collapse:collapse;font-size:15px}
+  article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+                        vertical-align:top}
+  article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
+             letter-spacing:.07em;color:var(--muted)}
+
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
+  .lista li{border-bottom:1px solid var(--line)}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
+
+  .chamada{
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    border-radius:var(--radius);padding:28px 26px;
+  }
+  .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
+                  font-weight:700;letter-spacing:-.02em}
+  .chamada p{margin:9px 0 0;color:var(--muted);font-size:15.5px}
+  .chamada a{display:inline-block;margin-top:16px;background:var(--brand);color:#fff;
+             text-decoration:none;font-weight:600;font-size:15px;
+             padding:11px 18px;border-radius:10px}
+
+  footer{display:flex;justify-content:space-between;align-items:center;gap:16px;
+         flex-wrap:wrap;margin-top:48px;padding-block:28px 40px;
+         border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+  footer nav{display:flex;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="mark" href="/" aria-label="contratai, página inicial">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <div class="navdir">
+      <a href="/blog">Guias</a>
+      <a href="/">O produto</a>
+      <a href="https://app.contratai.net">Entrar</a>
+    </div>
+  </nav>
+
+  <header class="topo">
+    <p class="kicker">LGPD e dados de candidato</p>
+    <h1>Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD</h1>
+    <p class="resumo">O artigo é curto e mexe com quase toda ferramenta de triagem automática. O que ele garante ao candidato, e o que isso cobra de você.</p>
+  </header>
+
+  <article>
+      <blockquote><p>Orientação prática, não parecer jurídico. Aplicação ao seu caso deve passar pelo jurídico ou pelo encarregado de dados da sua empresa.</p></blockquote>
+      <p>De todos os artigos da LGPD, o 20 é o que mais afeta ferramenta de recrutamento com IA — e o menos citado nas demonstrações comerciais.</p>
+      <h2>O que o artigo garante</h2>
+      <p>Ele dá ao titular o direito de <strong>solicitar a revisão de decisões tomadas unicamente com base em tratamento automatizado</strong> de dados pessoais que afetem seus interesses, incluindo decisões destinadas a definir perfil pessoal, profissional, de consumo e de crédito, ou aspectos da personalidade.</p>
+      <p>O texto cita perfil profissional de forma expressa. Triagem automática de candidato está dentro do alcance que o artigo descreve.</p>
+      <p>Há ainda a obrigação de, quando solicitado, <strong>fornecer informações claras e adequadas sobre os critérios e procedimentos</strong> usados na decisão — observados os segredos comercial e industrial.</p>
+      <h2>Três palavras que decidem o caso</h2>
+      <p><strong>"Unicamente".</strong> O artigo fala de decisão tomada unicamente de forma automatizada. Se existe uma pessoa que efetivamente analisa e decide, a situação é outra. O detalhe é o "efetivamente": um humano que só aprova a lista que o sistema ordenou, sem olhar caso a caso, é difícil de sustentar como decisão humana.</p>
+      <p><strong>"Que afetem seus interesses".</strong> Não ser chamado para uma vaga afeta interesse. Não há muito o que discutir aqui.</p>
+      <p><strong>"Critérios e procedimentos".</strong> O que se deve explicar é a lógica, não o código nem o modelo. A ressalva de segredo comercial existe, mas ela protege a fórmula proprietária — não dispensa a empresa de explicar com base em quê a pessoa foi descartada.</p>
+      <h2>Onde isso aperta na prática</h2>
+      <p><strong>Score de 0 a 100.</strong> Se o número define quem avança, você tem uma decisão automatizada baseada em perfil. E se o número sai de um modelo treinado, você vai ter dificuldade de explicar os critérios — porque muitas vezes nem o fornecedor consegue.</p>
+      <p><strong>Corte automático por limiar.</strong> "Abaixo de 60 não aparece na lista" é eliminação automatizada, mesmo que ninguém tenha clicado em nada.</p>
+      <p><strong>Ordenação que esconde.</strong> Se a lista tem duzentos nomes e ninguém passa da terceira página, a ordenação funciona como eliminação na prática. Isso é mais discutível juridicamente, e mais difícil de defender do que parece.</p>
+      <h2>O que reduz a exposição</h2>
+      <p><strong>Critério declarado em vez de nota opaca.</strong> Conferir requisitos que você escreveu na vaga — atende a 6 de 7, e faltou este — é determinístico e explicável item a item. Qualquer pessoa refaz a conta com os mesmos dados.</p>
+      <p><strong>Humano que decide de verdade.</strong> Com acesso ao material, tempo para olhar, e autoridade para discordar do sistema. Registre a discordância quando houver: é a prova de que a revisão humana existe.</p>
+      <p><strong>Registro do motivo.</strong> Para cada candidato não avançado, qual requisito faltou. Se não dá para escrever a frase, não era critério — era impressão.</p>
+      <p><strong>Canal de revisão que funciona.</strong> Um e-mail que alguém lê, com prazo de resposta. O direito existe mesmo que ninguém use; ter o canal pronto é o que transforma um pedido numa resposta em vez de numa reclamação à ANPD.</p>
+      <h2>A frase que resolve na hora da compra</h2>
+      <p>Peça ao fornecedor a frase exata que você vai mandar ao candidato que perguntar por que não avançou.</p>
+      <p>Se sair uma frase que explica o critério, a ferramenta te deixa cumprir o art. 20. Se a resposta for "o modelo considera vários fatores", a obrigação continua sendo sua — só que agora sem meio de cumprir.</p>
+
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>
+    <div class="vizinhos">
+      <p class="kicker">Mais sobre LGPD e dados de candidato</p>
+      <ul><li><a href="/blog/por-quanto-tempo-guardar-curriculo">Por quanto tempo guardar currículo de candidato reprovado</a></li><li><a href="/blog/gravar-entrevista-lgpd">Gravar entrevista: o que a LGPD exige</a></li><li><a href="/blog/banco-de-talentos-lgpd">Banco de talentos e LGPD: como manter sem virar passivo</a></li><li><a href="/blog/pedido-de-exclusao-de-dados">Pedido de exclusão de dados por candidato: como responder</a></li></ul>
+    </div>
+  </article>
+
+  <footer>
+    <span>contratai.net</span>
+    <nav>
+      <a href="/">O produto</a>
+      <a href="/blog">Guias</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos</a>
+    </nav>
+  </footer>
+
+</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Decisão automatizada no recrutamento: o que diz o art. 20 da LGPD",
+ "description": "O artigo é curto e mexe com quase toda ferramenta de triagem automática. O que ele garante ao candidato, e o que isso cobra de você.",
+ "articleSection": "LGPD e dados de candidato",
+ "inLanguage": "pt-BR",
+ "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://contratai.net/blog/decisao-automatizada-art-20"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "contratai",
+  "url": "https://contratai.net/"
+ }
+}
+</script>
+</body>
+</html>

@@ -11,7 +11,7 @@ de candidatos por áudio no WhatsApp conduzidas por um agente de IA.
 |---|---|
 | `index.html` | Landing page |
 | `privacidade.html` | Política de privacidade (LGPD) |
-| `blog.html` · `blog/*.html` | Blog — **gerados**, não editar à mão |
+| `blog/*.html` | Guias — **gerados**, não editar à mão |
 | `conteudo/*.md` | Os posts, em Markdown. É daqui que se escreve |
 | `gerar-blog.py` | O gerador |
 | `hero-1.mp4` · `hero-2.mp4` · `hero-3.mp4` · `poster.jpg` | Os três clipes que se revezam na hero e o pôster do primeiro |
@@ -36,32 +36,44 @@ E abrir <http://localhost:8000>.
 
 ## Blog
 
-Escrever um post é criar um arquivo em `conteudo/`, com o nome mandando na data
-e na URL:
+São guias perenes agrupados em três categorias, **sem data**. Escrever um texto
+é criar um arquivo em `conteudo/`, com o nome virando a URL:
 
 ```
-conteudo/2026-11-15-candidato-que-nao-aparece.md   →   /blog/candidato-que-nao-aparece
+conteudo/candidato-que-nao-aparece.md   →   /blog/candidato-que-nao-aparece
 ```
 
 Com este cabeçalho:
 
 ```markdown
 ---
-titulo: Candidato que não aparece: por que remarcar não resolve
-resumo: Uma frase. Vira a descrição na busca e o texto do card no índice.
+titulo: "Candidato que não aparece: por que remarcar não resolve"
+resumo: Uma frase. Vira a descrição na busca e o texto do item no índice.
 categoria: Triagem e seleção
+ordem: 1
 ---
 ```
 
-`titulo` e `resumo` são obrigatórios; `categoria` é opcional. Depois:
+`titulo`, `resumo` e `categoria` são obrigatórios; `ordem` posiciona dentro da
+categoria (sem ela, vai para o fim). Título com `:` precisa de aspas, que o
+gerador remove. Categoria fora da lista de `CATEGORIAS` **para a geração** — é
+erro de digitação, não categoria nova. Para criar uma de verdade, editar
+`CATEGORIAS` no gerador. Depois:
 
 ```bash
 python3 gerar-blog.py
 ```
 
-Isso reescreve `blog.html`, `blog/<slug>.html` e o `sitemap.xml`. **Os arquivos
-gerados são commitados** — a Vercel não roda nada, só serve. O `.vercelignore`
-mantém os fontes e o gerador fora do deploy.
+Isso reescreve `blog/index.html`, `blog/<slug>.html` e o `sitemap.xml`, e apaga
+do `blog/` o que não tem mais fonte. **Os arquivos gerados são commitados** — a
+Vercel não roda nada, só serve. O `.vercelignore` mantém os fontes e o gerador
+fora do deploy.
+
+**Por que sem data:** são guias, não notícia. Datar no passado para simular
+cadência seria prova social inventada — a mesma regra que mantém número de
+cliente fictício fora da landing — e o `datePublished` do schema é lido pelo
+buscador, que cobra data real. Sem data, a biblioteca nunca parece abandonada
+e nada é falso. O schema é `Article`, sem data de publicação.
 
 O Markdown aceito é um subconjunto deliberado: `##`/`###`, parágrafo, `**negrito**`,
 `*itálico*`, `` `código` ``, `[link](url)`, listas com `-` ou `1.`, `>` para citação,

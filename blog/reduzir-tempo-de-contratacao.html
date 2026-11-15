@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Como reduzir o tempo de contratação sem baixar o nível · contratai</title>
+<meta name="description" content="O processo não demora por causa das etapas. Demora por causa da espera entre elas — e é aí que dá para cortar sem perder critério.">
+<link rel="canonical" href="https://contratai.net/blog/reduzir-tempo-de-contratacao">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Como reduzir o tempo de contratação sem baixar o nível · contratai">
+<meta property="og:description" content="O processo não demora por causa das etapas. Demora por causa da espera entre elas — e é aí que dá para cortar sem perder critério.">
+<meta property="og:url" content="https://contratai.net/blog/reduzir-tempo-de-contratacao">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  img{max-width:100%}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
+    --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
+    --faixa:#0A1B14; --faixa-line:#15291F;
+  }
+
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin-inline:auto;padding-inline:20px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+  .mark img{height:34px;width:auto;display:block}
+  .mark .escuro{display:none}
+  :root[data-mode="dark"] .mark .claro{display:none}
+  :root[data-mode="dark"] .mark .escuro{display:block}
+  .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
+  .navdir a{color:var(--muted);text-decoration:none}
+  .navdir a:hover{color:var(--ink)}
+
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin:0 0 13px;
+  }
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
+  .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
+
+  article{padding-bottom:40px}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
+  article p{margin:17px 0 0}
+  article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
+  article li{padding-left:3px}
+  article a{color:var(--brand-bright);text-underline-offset:3px}
+  article code{font-family:"IBM Plex Mono",monospace;font-size:.9em;
+               background:var(--faixa);border:1px solid var(--faixa-line);
+               border-radius:5px;padding:1px 5px}
+  article hr{margin:38px 0 0;border:0;border-top:1px solid var(--line)}
+  article blockquote{margin:24px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--brand);
+                     color:var(--ink);font-size:17.5px}
+  article blockquote p{margin:0}
+  article table{width:100%;margin-top:22px;border-collapse:collapse;font-size:15px}
+  article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+                        vertical-align:top}
+  article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
+             letter-spacing:.07em;color:var(--muted)}
+
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
+  .lista li{border-bottom:1px solid var(--line)}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
+
+  .chamada{
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    border-radius:var(--radius);padding:28px 26px;
+  }
+  .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
+                  font-weight:700;letter-spacing:-.02em}
+  .chamada p{margin:9px 0 0;color:var(--muted);font-size:15.5px}
+  .chamada a{display:inline-block;margin-top:16px;background:var(--brand);color:#fff;
+             text-decoration:none;font-weight:600;font-size:15px;
+             padding:11px 18px;border-radius:10px}
+
+  footer{display:flex;justify-content:space-between;align-items:center;gap:16px;
+         flex-wrap:wrap;margin-top:48px;padding-block:28px 40px;
+         border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+  footer nav{display:flex;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="mark" href="/" aria-label="contratai, página inicial">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <div class="navdir">
+      <a href="/blog">Guias</a>
+      <a href="/">O produto</a>
+      <a href="https://app.contratai.net">Entrar</a>
+    </div>
+  </nav>
+
+  <header class="topo">
+    <p class="kicker">Triagem e seleção</p>
+    <h1>Como reduzir o tempo de contratação sem baixar o nível</h1>
+    <p class="resumo">O processo não demora por causa das etapas. Demora por causa da espera entre elas — e é aí que dá para cortar sem perder critério.</p>
+  </header>
+
+  <article>
+      <p>Quando alguém pede para acelerar uma contratação, a primeira reação costuma ser cortar etapa. Tira uma entrevista, dispensa o teste, decide com menos gente. Funciona, e cobra o preço na qualidade da escolha.</p>
+      <p>Só que a maior parte do tempo de uma vaga não está nas etapas. Está <strong>entre</strong> elas.</p>
+      <h2>Mede o tempo parado, não o tempo gasto</h2>
+      <p>Pegue uma vaga que já fechou e anote as datas: quando o currículo chegou, quando alguém leu, quando o convite foi enviado, quando a conversa aconteceu, quando o gestor deu retorno, quando a proposta saiu.</p>
+      <p>Agora some duas colunas: quanto tempo alguém estava efetivamente trabalhando na vaga, e quanto tempo ela ficou parada esperando alguém ter tempo.</p>
+      <p>Na maioria dos processos, a segunda coluna é muito maior. A entrevista durou trinta minutos; o candidato esperou nove dias para ser chamado.</p>
+      <p>Isso muda o alvo. Não adianta deixar a entrevista mais rápida se o gargalo é o intervalo até ela.</p>
+      <h2>Os quatro pontos onde o tempo some</h2>
+      <p><strong>Entre a candidatura e a primeira leitura.</strong> O currículo chega e fica. Quanto mais candidatos, maior a pilha, e maior a chance de a pilha só ser aberta quando alguém reservar meio dia para isso.</p>
+      <p><strong>Entre a leitura e a conversa.</strong> Aqui mora o pior intervalo do processo, porque ele depende de agenda — a sua e a do candidato. É também onde você perde candidato para quem foi mais rápido.</p>
+      <p><strong>Entre a conversa e o parecer.</strong> O recrutador conversou, mas o gestor da vaga ainda não leu. Quanto mais informal for o registro da conversa, mais demora, porque o gestor precisa de uma conversa a mais para entender o que aconteceu.</p>
+      <p><strong>Entre o parecer e a decisão.</strong> Falta de critério escrito transforma decisão em reunião. Reunião precisa de agenda. Agenda precisa de semana.</p>
+      <h2>O que corta tempo sem cortar critério</h2>
+      <p><strong>Fazer a primeira etapa deixar de depender de agenda.</strong> Tudo que exige dois calendários coincidirem é um gargalo estrutural. Se a primeira conversa pode acontecer de forma assíncrona, o intervalo entre leitura e conversa some — e some para todos os candidatos ao mesmo tempo, não um por um.</p>
+      <p><strong>Registrar em formato que o gestor leia sozinho.</strong> Transcrição e resposta escrita eliminam a reunião de repasse. O gestor abre, lê, responde. A diferença entre "preciso te contar como foi" e "está aqui o que ele disse" costuma ser de dias.</p>
+      <p><strong>Decidir com critério escrito antes de começar.</strong> Se os requisitos estão declarados, o parecer é uma conferência, não um debate. Debate é o que precisa de reunião.</p>
+      <p><strong>Responder quem não passou.</strong> Parece irrelevante para velocidade e não é: quem não responde acumula candidato em limbo, repete contato com gente já descartada e perde reputação, o que encarece a próxima vaga.</p>
+      <h2>O que não vale cortar</h2>
+      <ul><li>A verificação dos requisitos eliminatórios. É a etapa mais barata e a que mais evita contratação errada.</li><li>A conversa humana antes da decisão final. Ela não precisa ser a primeira, mas precisa existir.</li><li>O registro do que foi dito. Processo rápido sem registro é processo que não se sustenta se alguém questionar depois.</li></ul>
+      <h2>O número que vale acompanhar</h2>
+      <p>Um só, e é fácil de levantar: <strong>dias entre a candidatura e a primeira interação real</strong> — não o e-mail automático, a primeira vez em que alguém ou algo de fato conversou com a pessoa.</p>
+      <p>É o intervalo onde você perde os melhores candidatos, que são justamente os que têm outros processos andando. E é o único número que melhora sem que você precise abrir mão de nenhum critério.</p>
+
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>
+    <div class="vizinhos">
+      <p class="kicker">Mais sobre Triagem e seleção</p>
+      <ul><li><a href="/blog/candidato-que-nao-aparece">Candidato que não aparece: por que remarcar não resolve</a></li><li><a href="/blog/quantos-candidatos-entrevistar">Quantos candidatos entrevistar antes de decidir</a></li><li><a href="/blog/roteiro-de-entrevista-vaga-operacional">Roteiro de entrevista para vaga operacional: o que perguntar e o que cortar</a></li><li><a href="/blog/triagem-de-curriculo-vaga-de-volume">Triagem de currículo não funciona para vaga de volume</a></li></ul>
+    </div>
+  </article>
+
+  <footer>
+    <span>contratai.net</span>
+    <nav>
+      <a href="/">O produto</a>
+      <a href="/blog">Guias</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos</a>
+    </nav>
+  </footer>
+
+</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Como reduzir o tempo de contratação sem baixar o nível",
+ "description": "O processo não demora por causa das etapas. Demora por causa da espera entre elas — e é aí que dá para cortar sem perder critério.",
+ "articleSection": "Triagem e seleção",
+ "inLanguage": "pt-BR",
+ "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://contratai.net/blog/reduzir-tempo-de-contratacao"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "contratai",
+  "url": "https://contratai.net/"
+ }
+}
+</script>
+</body>
+</html>

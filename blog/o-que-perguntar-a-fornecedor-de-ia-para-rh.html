@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O que perguntar a um fornecedor de IA para RH antes de assinar · contratai</title>
+<meta name="description" content="Oito perguntas que separam ferramenta que você consegue defender de ferramenta que vai virar problema seu.">
+<link rel="canonical" href="https://contratai.net/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="O que perguntar a um fornecedor de IA para RH antes de assinar · contratai">
+<meta property="og:description" content="Oito perguntas que separam ferramenta que você consegue defender de ferramenta que vai virar problema seu.">
+<meta property="og:url" content="https://contratai.net/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  img{max-width:100%}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
+    --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
+    --faixa:#0A1B14; --faixa-line:#15291F;
+  }
+
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin-inline:auto;padding-inline:20px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+  .mark img{height:34px;width:auto;display:block}
+  .mark .escuro{display:none}
+  :root[data-mode="dark"] .mark .claro{display:none}
+  :root[data-mode="dark"] .mark .escuro{display:block}
+  .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
+  .navdir a{color:var(--muted);text-decoration:none}
+  .navdir a:hover{color:var(--ink)}
+
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin:0 0 13px;
+  }
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
+  .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
+
+  article{padding-bottom:40px}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
+  article p{margin:17px 0 0}
+  article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
+  article li{padding-left:3px}
+  article a{color:var(--brand-bright);text-underline-offset:3px}
+  article code{font-family:"IBM Plex Mono",monospace;font-size:.9em;
+               background:var(--faixa);border:1px solid var(--faixa-line);
+               border-radius:5px;padding:1px 5px}
+  article hr{margin:38px 0 0;border:0;border-top:1px solid var(--line)}
+  article blockquote{margin:24px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--brand);
+                     color:var(--ink);font-size:17.5px}
+  article blockquote p{margin:0}
+  article table{width:100%;margin-top:22px;border-collapse:collapse;font-size:15px}
+  article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+                        vertical-align:top}
+  article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
+             letter-spacing:.07em;color:var(--muted)}
+
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
+  .lista li{border-bottom:1px solid var(--line)}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
+
+  .chamada{
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    border-radius:var(--radius);padding:28px 26px;
+  }
+  .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
+                  font-weight:700;letter-spacing:-.02em}
+  .chamada p{margin:9px 0 0;color:var(--muted);font-size:15.5px}
+  .chamada a{display:inline-block;margin-top:16px;background:var(--brand);color:#fff;
+             text-decoration:none;font-weight:600;font-size:15px;
+             padding:11px 18px;border-radius:10px}
+
+  footer{display:flex;justify-content:space-between;align-items:center;gap:16px;
+         flex-wrap:wrap;margin-top:48px;padding-block:28px 40px;
+         border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+  footer nav{display:flex;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="mark" href="/" aria-label="contratai, página inicial">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <div class="navdir">
+      <a href="/blog">Guias</a>
+      <a href="/">O produto</a>
+      <a href="https://app.contratai.net">Entrar</a>
+    </div>
+  </nav>
+
+  <header class="topo">
+    <p class="kicker">IA no recrutamento</p>
+    <h1>O que perguntar a um fornecedor de IA para RH antes de assinar</h1>
+    <p class="resumo">Oito perguntas que separam ferramenta que você consegue defender de ferramenta que vai virar problema seu.</p>
+  </header>
+
+  <article>
+      <p>Demonstração de software de recrutamento é desenhada para impressionar em vinte minutos. A tela é bonita, o caso é favorável, e o vendedor conhece o caminho.</p>
+      <p>Estas oito perguntas atravessam isso. Nenhuma é pegadinha — um fornecedor sólido responde todas sem desconforto.</p>
+      <h2>1. Onde exatamente a IA decide alguma coisa?</h2>
+      <p>Peça o mapa: em que ponto do fluxo ela organiza, em que ponto sugere, e em que ponto elimina.</p>
+      <p>"Decide" inclui coisas que não parecem decisão: ordenar a lista é decidir quem será visto primeiro, e quem está na página três costuma não ser visto.</p>
+      <h2>2. Esse número aí, como ele é calculado?</h2>
+      <p>Se existe pontuação na tela, peça para refazerem na sua frente, com as partes e os pesos.</p>
+      <p>Se a resposta for "o modelo considera vários fatores", você não vai conseguir explicar isso a um candidato nem à sua área de compliance.</p>
+      <h2>3. O que eu respondo ao candidato que perguntar por que não avançou?</h2>
+      <p>Peça a frase, literal. É o teste mais rápido que existe, porque força a tradução do recurso em responsabilidade.</p>
+      <p>O art. 20 da LGPD dá ao titular o direito de pedir revisão de decisão automatizada. Revisar exige entender.</p>
+      <h2>4. Os dados dos meus candidatos treinam o modelo de vocês?</h2>
+      <p>Pergunta direta, resposta tem que ser direta. Se a resposta for sim, pergunte como se opta por não participar e o que acontece com o que já foi usado.</p>
+      <p>Peça para constar no contrato, não no e-mail.</p>
+      <h2>5. Por quanto tempo vocês guardam, e como eu apago?</h2>
+      <p>Você é o controlador dos dados dos seus candidatos; o fornecedor é operador. A obrigação de atender a um pedido de exclusão é sua, e você só consegue cumprir se a ferramenta permitir.</p>
+      <p>Pergunte se apagar remove o arquivo de verdade — áudio, vídeo, anexo — ou só a referência na tela.</p>
+      <h2>6. O roteiro das perguntas é meu?</h2>
+      <p>Se as perguntas vêm prontas, o critério da sua vaga é de outra pessoa. E numa reclamação, quem responde é você.</p>
+      <h2>7. Como eu levo meus dados embora?</h2>
+      <p>Exportação de candidatos, histórico e avaliações, em formato aberto, sem pedir autorização a ninguém. Pergunte durante a venda, que é quando você tem poder.</p>
+      <h2>8. O candidato sabe que está falando com uma máquina?</h2>
+      <p>Se há automação conversando com a pessoa, ela precisa ser informada. Peça para ver a tela exata em que isso aparece.</p>
+      <p>Fornecedor que trata isso como detalhe de implementação está te vendendo um problema com embalagem de recurso.</p>
+      <hr>
+      <h2>Os sinais de alerta</h2>
+      <ul><li><strong>"É proprietário"</strong> como resposta para como o número é calculado. Segredo comercial é legítimo; o que você precisa não é o código, é a lógica.</li><li><strong>Precisão em porcentagem sem dizer medida contra o quê.</strong> "92% de precisão" não significa nada sem a definição de acerto e a base de comparação.</li><li><strong>Lista de clientes grandes no lugar da resposta.</strong> Quem mais usa não responde como funciona.</li><li><strong>Pressa.</strong> Desconto que vence nesta semana costuma ser o preço de você não fazer as perguntas acima.</li></ul>
+      <h2>A regra de bolso</h2>
+      <p>Antes de assinar, escreva em um parágrafo, com as suas palavras, como a ferramenta decide o que decide.</p>
+      <p>Se você não conseguir — depois da demonstração, da proposta e da conversa técnica — não é falta de atenção sua. É que a resposta não foi dada. E o que você não consegue explicar hoje, vai ter que explicar depois, para alguém com menos paciência.</p>
+
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>
+    <div class="vizinhos">
+      <p class="kicker">Mais sobre IA no recrutamento</p>
+      <ul><li><a href="/blog/ia-no-recrutamento-o-que-faz-e-o-que-nao">IA no recrutamento: o que faz bem, o que faz mal, o que não deveria fazer</a></li><li><a href="/blog/entrevista-conduzida-por-ia">Entrevista conduzida por IA: como funciona na prática</a></li><li><a href="/blog/score-de-candidato">Score de candidato: por que a nota que parece objetiva não é</a></li><li><a href="/blog/triagem-automatica-de-curriculo-vieses">Triagem automática de currículo: os vieses que ela herda</a></li></ul>
+    </div>
+  </article>
+
+  <footer>
+    <span>contratai.net</span>
+    <nav>
+      <a href="/">O produto</a>
+      <a href="/blog">Guias</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos</a>
+    </nav>
+  </footer>
+
+</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "O que perguntar a um fornecedor de IA para RH antes de assinar",
+ "description": "Oito perguntas que separam ferramenta que você consegue defender de ferramenta que vai virar problema seu.",
+ "articleSection": "IA no recrutamento",
+ "inLanguage": "pt-BR",
+ "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://contratai.net/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "contratai",
+  "url": "https://contratai.net/"
+ }
+}
+</script>
+</body>
+</html>

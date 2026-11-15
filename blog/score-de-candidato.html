@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Score de candidato: por que a nota que parece objetiva não é · contratai</title>
+<meta name="description" content="Um número de 0 a 100 parece critério. Na prática ele esconde escolhas que ninguém declarou — e que você vai precisar explicar.">
+<link rel="canonical" href="https://contratai.net/blog/score-de-candidato">
+<link rel="icon" type="image/png" href="/mic.png">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="contratai">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Score de candidato: por que a nota que parece objetiva não é · contratai">
+<meta property="og:description" content="Um número de 0 a 100 parece critério. Na prática ele esconde escolhas que ninguém declarou — e que você vai precisar explicar.">
+<meta property="og:url" content="https://contratai.net/blog/score-de-candidato">
+<meta property="og:image" content="https://contratai.net/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body>
+<script>
+  (function(){ try{ if(localStorage.getItem("contratai-tema")==="dark")
+    document.documentElement.setAttribute("data-mode","dark"); }catch(e){} })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600&display=swap">
+
+<style>
+  html{color-scheme:light}
+  html[data-mode="dark"]{color-scheme:dark}
+  *{box-sizing:border-box}
+  img{max-width:100%}
+
+  :root{
+    --paper:#FFFFFF; --surface:#FFFFFF; --ink:#0E3629; --muted:#5B7A6B;
+    --line:#E4EBE6; --brand:#089D5C; --brand-bright:#07894F; --brand-soft:#E9F7F0;
+    --faixa:#F4FAF7; --faixa-line:#E7F1EB; --radius:14px;
+  }
+  :root[data-mode="dark"]{
+    --paper:#06120E; --surface:#0C1F17; --ink:#E6F0EA; --muted:#8FA89A;
+    --line:#193026; --brand:#12B86C; --brand-bright:#3FD592; --brand-soft:#0E2F22;
+    --faixa:#0A1B14; --faixa-line:#15291F;
+  }
+
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:720px;margin-inline:auto;padding-inline:20px}
+
+  .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:18px}
+  .mark img{height:34px;width:auto;display:block}
+  .mark .escuro{display:none}
+  :root[data-mode="dark"] .mark .claro{display:none}
+  :root[data-mode="dark"] .mark .escuro{display:block}
+  .navdir{display:flex;align-items:center;gap:18px;font-size:14.5px}
+  .navdir a{color:var(--muted);text-decoration:none}
+  .navdir a:hover{color:var(--ink)}
+
+  .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin:0 0 13px;
+  }
+  h1{font-family:"Archivo",sans-serif;font-size:clamp(29px,4.4vw,41px);font-weight:800;
+     letter-spacing:-.035em;line-height:1.13;margin:0}
+  .resumo{margin-top:16px;font-size:18.5px;color:var(--muted);line-height:1.5}
+  .topo{padding-block:42px 30px;border-bottom:1px solid var(--line)}
+
+  article{padding-bottom:40px}
+  article h2{font-family:"Archivo",sans-serif;font-size:24px;font-weight:700;
+             letter-spacing:-.025em;line-height:1.2;margin:40px 0 0}
+  article h3{font-size:18.5px;font-weight:700;letter-spacing:-.015em;margin:30px 0 0}
+  article p{margin:17px 0 0}
+  article ul,article ol{margin:17px 0 0;padding-left:21px;display:grid;gap:9px}
+  article li{padding-left:3px}
+  article a{color:var(--brand-bright);text-underline-offset:3px}
+  article code{font-family:"IBM Plex Mono",monospace;font-size:.9em;
+               background:var(--faixa);border:1px solid var(--faixa-line);
+               border-radius:5px;padding:1px 5px}
+  article hr{margin:38px 0 0;border:0;border-top:1px solid var(--line)}
+  article blockquote{margin:24px 0 0;padding:4px 0 4px 20px;border-left:3px solid var(--brand);
+                     color:var(--ink);font-size:17.5px}
+  article blockquote p{margin:0}
+  article table{width:100%;margin-top:22px;border-collapse:collapse;font-size:15px}
+  article th,article td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+                        vertical-align:top}
+  article th{font-weight:600;font-size:12.5px;text-transform:uppercase;
+             letter-spacing:.07em;color:var(--muted)}
+
+  .grupo{margin-top:46px}
+  .grupo > h2{font-family:"Archivo",sans-serif;font-size:21px;font-weight:700;
+              letter-spacing:-.02em;margin:0}
+  .grupo > p{margin:7px 0 0;color:var(--muted);font-size:15.5px;max-width:52ch}
+  .lista{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--line)}
+  .lista li{border-bottom:1px solid var(--line)}
+  .lista a{display:block;padding:19px 2px;text-decoration:none;color:inherit}
+  .lista a:hover strong{color:var(--brand-bright)}
+  .lista strong{display:block;font-size:17px;font-weight:600;letter-spacing:-.015em;
+                line-height:1.3}
+  .lista span{display:block;margin-top:6px;color:var(--muted);font-size:15px}
+
+  .vizinhos{margin-top:40px;padding-top:26px;border-top:1px solid var(--line)}
+  .vizinhos .kicker{margin-bottom:14px}
+  .vizinhos ul{list-style:none;margin:0;padding:0;display:grid;gap:11px}
+  .vizinhos a{color:var(--ink);text-decoration:none;font-weight:500}
+  .vizinhos a:hover{color:var(--brand-bright);text-decoration:underline;text-underline-offset:3px}
+
+  .chamada{
+    margin-top:42px;background:var(--brand-soft);border:1px solid var(--faixa-line);
+    border-radius:var(--radius);padding:28px 26px;
+  }
+  .chamada strong{display:block;font-family:"Archivo",sans-serif;font-size:19px;
+                  font-weight:700;letter-spacing:-.02em}
+  .chamada p{margin:9px 0 0;color:var(--muted);font-size:15.5px}
+  .chamada a{display:inline-block;margin-top:16px;background:var(--brand);color:#fff;
+             text-decoration:none;font-weight:600;font-size:15px;
+             padding:11px 18px;border-radius:10px}
+
+  footer{display:flex;justify-content:space-between;align-items:center;gap:16px;
+         flex-wrap:wrap;margin-top:48px;padding-block:28px 40px;
+         border-top:1px solid var(--line);font-size:13.5px;color:var(--muted)}
+  footer nav{display:flex;gap:18px;flex-wrap:wrap}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+
+  @media (max-width:560px){
+    .topo{padding-block:30px 24px}
+    article h2{margin-top:32px}
+    .grupo{margin-top:38px}
+  }
+</style>
+
+<div class="wrap">
+
+  <nav class="nav">
+    <a class="mark" href="/" aria-label="contratai, página inicial">
+      <img class="claro"  src="/logo-claro.png"  alt="contratai" width="640" height="218">
+      <img class="escuro" src="/logo-escuro.png" alt="contratai" width="640" height="218">
+    </a>
+    <div class="navdir">
+      <a href="/blog">Guias</a>
+      <a href="/">O produto</a>
+      <a href="https://app.contratai.net">Entrar</a>
+    </div>
+  </nav>
+
+  <header class="topo">
+    <p class="kicker">IA no recrutamento</p>
+    <h1>Score de candidato: por que a nota que parece objetiva não é</h1>
+    <p class="resumo">Um número de 0 a 100 parece critério. Na prática ele esconde escolhas que ninguém declarou — e que você vai precisar explicar.</p>
+  </header>
+
+  <article>
+      <p>O score de candidato é o recurso mais fácil de vender num software de recrutamento. Ele resolve um desconforto real: olhar duzentos nomes e não saber por onde começar. Uma coluna com números ordena a lista e devolve a sensação de controle.</p>
+      <p>O problema não é a lista ficar ordenada. É o que o número significa.</p>
+      <h2>Toda nota é uma soma de pesos</h2>
+      <p>Um score junta coisas que não têm a mesma unidade. Experiência em anos, aderência de palavras do currículo, tempo de resposta, resultado de teste, às vezes "fit cultural". Para virar um número só, cada uma recebe um peso.</p>
+      <p>Esses pesos são uma opinião. Alguém decidiu que experiência vale mais que formação, ou que três anos numa empresa vale mais que um ano em três. Pode até ser uma opinião razoável — mas é uma opinião, e não é sua.</p>
+      <p>Quando o score vem pronto do fornecedor, <strong>você terceirizou o critério da sua vaga e recebeu de volta um número com cara de medida.</strong></p>
+      <h2>O que o número esconde</h2>
+      <p><strong>O empate que não é empate.</strong> Dois candidatos com 71 podem ter chegado lá por caminhos opostos: um forte em experiência e fraco em disponibilidade, o outro o contrário. Para a sua operação, um deles pode ser inviável. O número não conta.</p>
+      <p><strong>O requisito eliminatório diluído.</strong> Se a pessoa não tem a certificação obrigatória, ela não serve — independentemente do resto. Num score, a falta vira alguns pontos a menos, e a pessoa continua na lista parecendo razoável.</p>
+      <p><strong>O peso do que você não quis medir.</strong> Modelos treinados em contratações passadas aprendem o padrão das contratações passadas. Se o histórico tem um viés, o score reproduz esse viés com aparência de neutralidade — o que é pior que o viés declarado, porque agora ele tem três casas decimais.</p>
+      <h2>A pergunta que o número não responde</h2>
+      <p>Mais cedo ou mais tarde, um candidato pergunta por que não avançou.</p>
+      <p>Com score, a resposta sincera é "o sistema te deu 54". Isso não explica nada, e no Brasil não basta: o art. 20 da LGPD dá ao titular o direito de pedir revisão de decisão tomada com base em tratamento automatizado. Revisar exige entender.</p>
+      <p>Não é só risco jurídico. Em venda para RH grande, a área de compliance faz a mesma pergunta antes de assinar — e "é um modelo proprietário" costuma ser onde o processo trava.</p>
+      <h2>O que colocar no lugar</h2>
+      <p><strong>Conferência de requisito.</strong> Você declarou sete requisitos na vaga. O candidato atende a seis. Aqui está o que faltou.</p>
+      <p>Isso também vira um número na tela, e por isso se confunde com score. A diferença está em três coisas:</p>
+      <table><thead><tr><th></th><th>Score</th><th>Conferência</th></tr></thead><tbody><tr><td>De onde vem</td><td>pesos que você não definiu</td><td>requisitos que você escreveu</td></tr><tr><td>Dá para refazer à mão</td><td>não</td><td>sim</td></tr><tr><td>Explica a falta</td><td>não</td><td>aponta qual requisito</td></tr></tbody></table>
+      <p><strong>Ordenação, não eliminação.</strong> Deixe a máquina organizar a fila e a pessoa decidir quem sai dela. Enquanto existir alguém decidindo, existe alguém que responde.</p>
+      <p><strong>Critério escrito antes de ver os candidatos.</strong> É o que impede que o critério seja reconstruído depois, em volta de quem você já gostou.</p>
+      <h2>O teste de uma tela só</h2>
+      <p>Da próxima vez que um fornecedor mostrar um score, peça duas coisas:</p>
+      <ol><li><strong>Refaça esse número na minha frente.</strong> Mostre as partes e os pesos.</li><li><strong>Escreva a frase que eu mando para o candidato que perguntar por quê.</strong></li></ol>
+      <p>Se as duas saírem, o número é critério e serve. Se a primeira virar "o modelo considera vários fatores" e a segunda não sair, você não está comprando objetividade — está comprando a aparência dela, e assumindo a conta.</p>
+
+      <div class="chamada">
+        <strong>O agente entrevista; você só lê.</strong>
+        <p>Entrevistas por áudio no WhatsApp do candidato, com transcrição e relatório
+        prontos quando você abrir o painel. As 10 primeiras são por nossa conta.</p>
+        <a href="https://app.contratai.net/criar-conta">Criar conta grátis</a>
+      </div>
+    <div class="vizinhos">
+      <p class="kicker">Mais sobre IA no recrutamento</p>
+      <ul><li><a href="/blog/ia-no-recrutamento-o-que-faz-e-o-que-nao">IA no recrutamento: o que faz bem, o que faz mal, o que não deveria fazer</a></li><li><a href="/blog/entrevista-conduzida-por-ia">Entrevista conduzida por IA: como funciona na prática</a></li><li><a href="/blog/triagem-automatica-de-curriculo-vieses">Triagem automática de currículo: os vieses que ela herda</a></li><li><a href="/blog/o-que-perguntar-a-fornecedor-de-ia-para-rh">O que perguntar a um fornecedor de IA para RH antes de assinar</a></li></ul>
+    </div>
+  </article>
+
+  <footer>
+    <span>contratai.net</span>
+    <nav>
+      <a href="/">O produto</a>
+      <a href="/blog">Guias</a>
+      <a href="/privacidade">Privacidade</a>
+      <a href="/termos">Termos</a>
+    </nav>
+  </footer>
+
+</div>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Score de candidato: por que a nota que parece objetiva não é",
+ "description": "Um número de 0 a 100 parece critério. Na prática ele esconde escolhas que ninguém declarou — e que você vai precisar explicar.",
+ "articleSection": "IA no recrutamento",
+ "inLanguage": "pt-BR",
+ "mainEntityOfPage": {
+  "@type": "WebPage",
+  "@id": "https://contratai.net/blog/score-de-candidato"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "contratai",
+  "url": "https://contratai.net/"
+ }
+}
+</script>
+</body>
+</html>

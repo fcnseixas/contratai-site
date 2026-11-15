@@ -2,6 +2,7 @@
 titulo: Candidato que não aparece: por que remarcar não resolve
 resumo: A falta quase nunca é desleixo. É o formato cobrando o preço dele — e remarcar só empurra a conta para a semana seguinte.
 categoria: Triagem e seleção
+ordem: 1
 ---
 
 Toda operação que contrata com frequência conhece a cena. A vaga abriu, os
