@@ -604,7 +604,7 @@
   .step h3{font-size:19px;font-weight:700;letter-spacing:-.02em}
   .step p{margin-top:9px;color:var(--muted);font-size:15px}
 
-  .edge{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
+  .edge{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
         border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:76px}
   .cell{background:var(--surface);padding:28px 26px}
   .cell h3{font-size:17.5px;font-weight:700;letter-spacing:-.02em}
@@ -622,6 +622,29 @@
   }
   .portas .cell h3{font-size:19px}
   .portas .cell p{margin-top:11px;font-size:15.5px;line-height:1.55}
+
+  /* ---------- a linha ----------
+     Faz e não faz, lado a lado. É o único lugar da página onde o que o produto
+     recusa pesa tanto quanto o que ele entrega — e desde que um concorrente
+     direto passou a vender a nota como feature, isso deixou de caber num card
+     entre quatro. A coluna do "não faz" é a destacada, de propósito. */
+  .linha{display:grid;grid-template-columns:1fr 1fr;gap:20px;max-width:900px;margin-inline:auto}
+  .linha-col{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px}
+  .linha-col.nao{background:var(--brand-soft);border-color:var(--brand-line)}
+  .linha-tag{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--muted);margin:0 0 16px;
+  }
+  .linha-col.nao .linha-tag{color:var(--brand-bright)}
+  .linha ul{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .linha li{display:flex;gap:10px;font-size:15.5px;line-height:1.5;color:var(--muted)}
+  .linha li::before{content:"";flex:none;width:14px;height:1.5px;margin-top:11px;background:var(--line)}
+  .linha-col.nao li{color:var(--ink);font-weight:500}
+  .linha-col.nao li::before{background:var(--brand)}
+  .linha-pe{
+    max-width:62ch;margin:30px auto 0;text-align:center;
+    font-size:15px;color:var(--muted);
+  }
 
   /* ---------- dúvidas ----------
      <details> nativo: abre e fecha sem uma linha de JavaScript, e a resposta
@@ -705,6 +728,7 @@
     .edge{grid-template-columns:1fr}
     .portas{grid-template-columns:1fr;margin-bottom:56px}
     .faixa{padding-block:54px;margin-bottom:56px}
+    .linha{grid-template-columns:1fr;gap:14px}
     .close{padding-block:46px}
     .faq{margin-bottom:56px}
     .slab{border-radius:20px;margin-bottom:56px}
@@ -1040,6 +1064,41 @@
 
   <section class="faixa">
     <div class="sec-head">
+      <p class="kicker">A linha que não cruzamos</p>
+      <h2>A IA não dá nota ao candidato.</h2>
+      <p>Ela conduz a conversa e transcreve o que foi dito. O único número que aparece
+      é quantos dos requisitos que <em>você</em> declarou na vaga a pessoa atende —
+      "6 de 7" — com a lista do que faltou.</p>
+    </div>
+
+    <div class="linha">
+      <div class="linha-col">
+        <p class="linha-tag">O que ela faz</p>
+        <ul>
+          <li>Conduz a entrevista inteira, pergunta por pergunta</li>
+          <li>Pede esclarecimento quando a resposta fica curta</li>
+          <li>Transcreve o que foi dito, com o áudio ao lado</li>
+          <li>Confere os requisitos declarados na vaga</li>
+        </ul>
+      </div>
+      <div class="linha-col nao">
+        <p class="linha-tag">O que ela não faz</p>
+        <ul>
+          <li>Não dá nota à pessoa</li>
+          <li>Não prevê permanência nem desempenho</li>
+          <li>Não infere perfil, temperamento ou caráter</li>
+          <li>Não decide nada no seu lugar</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="linha-pe">Decisão automatizada sobre alguém é exatamente o que o
+    <strong>art. 20 da LGPD</strong> dá a essa pessoa o direito de contestar. Aqui não
+    há o que contestar — o que existe é conferência de requisito, explicável item a item.</p>
+  </section>
+
+  <section>
+    <div class="sec-head">
       <p class="kicker">Garantias</p>
       <h2>O que não muda, seja uma vaga ou cinquenta.</h2>
     </div>
@@ -1054,17 +1113,13 @@
         <p>Cada vaga tem suas perguntas, obrigatórias e condicionais. Se ele já trabalhou com CRM, a próxima pergunta muda sozinha.</p>
       </div>
       <div class="cell">
-        <h3>A IA não dá nota ao candidato</h3>
-        <p>Ela conduz a conversa e transcreve o que foi dito. O número que você vê é quantos requisitos da vaga ele atende — e quais faltam. Nada de escore secreto: quem avalia a pessoa é a sua equipe.</p>
-      </div>
-      <div class="cell">
         <h3>Cada empresa vê só o que é seu</h3>
         <p>O isolamento entre clientes é garantido no banco de dados, não na tela. Dado de um cliente não alcança o outro.</p>
       </div>
     </div>
   </section>
 
-  <section>
+  <section class="faixa">
     <div class="sec-head">
       <p class="kicker">Dúvidas</p>
       <h2>O que perguntam antes de criar a conta.</h2>
