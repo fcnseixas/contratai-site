@@ -65,6 +65,9 @@
     --halo:rgba(8,157,92,.36);
     --onda-a:rgba(8,157,92,.24);
     --onda-b:rgba(8,157,92,.08);
+    /* faixas de ponta a ponta */
+    --faixa:#F4FAF7;
+    --faixa-line:#E7F1EB;
   }
   :root[data-mode="dark"]{
     --paper:#06120E;
@@ -96,6 +99,8 @@
     --halo:rgba(18,184,108,.26);
     --onda-a:rgba(18,184,108,.28);
     --onda-b:rgba(18,184,108,.09);
+    --faixa:#0A1B14;
+    --faixa-line:#15291F;
   }
 
   *{box-sizing:border-box}
@@ -109,6 +114,32 @@
     -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:20px;position:relative}
+
+  /* ---------- faixas de ponta a ponta ----------
+     Tudo vive dentro de .wrap, que tem largura máxima. Para uma seção sangrar
+     até a borda sem reestruturar o HTML inteiro, ela toma de margem negativa
+     exatamente a sobra lateral e devolve a mesma medida em padding: o texto
+     volta a alinhar com a coluna, só o fundo é que vai até a ponta.
+
+     A barra de rolagem entra na conta dos 100vw mas não na largura útil, então
+     a faixa sobra ~8px de cada lado. Para cortar essa sobra o corte precisa
+     estar nos DOIS: se só o body corta, o navegador propaga o valor dele para a
+     viewport e devolve `visible` ao body, que então não corta nada. Com o html
+     já declarado não há propagação, e aí o body vira caixa de corte de verdade.
+     `clip` é o certo — não cria contexto de rolagem; `hidden` fica de recuo
+     para navegador antigo. */
+  html{overflow-x:hidden;overflow-x:clip}
+  body{overflow-x:hidden;overflow-x:clip}
+  .faixa{
+    margin-inline:calc(50% - 50vw);
+    padding-inline:calc(50vw - 50%);
+    padding-block:74px;margin-bottom:76px;
+    background:var(--faixa);
+    border-block:1px solid var(--faixa-line);
+  }
+  /* O espaçamento da página mora no último filho de cada seção; dentro da
+     faixa quem espaça é o padding dela, senão a folga vem dobrada. */
+  .faixa > *:last-child{margin-bottom:0}
 
   /* ---------- ambiente ----------
      O branco liso deixava a página começar do nada. Duas camadas fixas, as
@@ -528,7 +559,11 @@
   }
 
   /* ---------- seções ---------- */
-  .sec-head{max-width:38ch;margin-bottom:38px}
+  .sec-head{max-width:46ch;margin-inline:auto;margin-bottom:38px;text-align:center}
+  .sec-head .kicker{
+    font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brand);margin-bottom:13px;
+  }
   .sec-head h2{font-size:clamp(27px,3.4vw,36px);font-weight:700}
   .sec-head p{margin-top:12px;color:var(--muted);font-size:17px}
 
@@ -588,9 +623,40 @@
   .portas .cell h3{font-size:19px}
   .portas .cell p{margin-top:11px;font-size:15.5px;line-height:1.55}
 
+  /* ---------- dúvidas ----------
+     <details> nativo: abre e fecha sem uma linha de JavaScript, e a resposta
+     continua no HTML mesmo fechada — que é o que o buscador lê. */
+  .faq{max-width:760px;margin-inline:auto;border-top:1px solid var(--line);margin-bottom:76px}
+  .faq details{border-bottom:1px solid var(--line)}
+  .faq summary{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:19px 2px;cursor:pointer;list-style:none;
+    font-size:17px;font-weight:600;letter-spacing:-.015em;
+  }
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:hover{color:var(--brand-bright)}
+  .faq summary:focus-visible{outline:2px solid var(--brand);outline-offset:3px;border-radius:4px}
+  .faq summary::after{
+    content:"";flex:none;width:10px;height:10px;margin:-5px 4px 0 0;
+    border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+    transform:rotate(45deg);
+  }
+  .faq details[open] summary::after{transform:rotate(-135deg);margin-top:4px}
+  @media (prefers-reduced-motion: no-preference){
+    .faq summary::after{transition:transform .2s ease}
+  }
+  .faq .resp{padding:0 2px 22px;color:var(--muted);font-size:15.5px}
+  .faq .resp p + p{margin-top:10px}
+
   /* ---------- fecho ---------- */
+  /* O fecho também sangra: terminar a página numa caixa arredondada no meio
+     do branco enfraquecia a última coisa que a pessoa lê. */
   .close{
-    background:var(--brand-soft);border-radius:22px;padding:52px 44px;
+    background:var(--brand-soft);
+    margin-inline:calc(50% - 50vw);
+    padding-inline:calc(50vw - 50%);
+    padding-block:60px;
+    border-top:1px solid var(--brand-line);
     display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;
   }
   .close h2{font-size:clamp(25px,3.2vw,34px);font-weight:700;max-width:20ch}
@@ -638,6 +704,9 @@
     .film{aspect-ratio:16/10}
     .edge{grid-template-columns:1fr}
     .portas{grid-template-columns:1fr;margin-bottom:56px}
+    .faixa{padding-block:54px;margin-bottom:56px}
+    .close{padding-block:46px}
+    .faq{margin-bottom:56px}
     .slab{border-radius:20px;margin-bottom:56px}
   }
   @media (max-width:520px){
@@ -794,8 +863,9 @@
     </div>
   </section>
 
-  <section>
+  <section class="faixa">
     <div class="sec-head">
+      <p class="kicker">O problema</p>
       <h2>O tempo não está na entrevista. Está na fila.</h2>
       <p>Conversar com um candidato leva vinte minutos. O que leva vinte dias é tudo
       o que acontece antes disso.</p>
@@ -909,8 +979,9 @@
     </div>
   </section>
 
-  <section id="como">
+  <section id="como" class="faixa">
     <div class="sec-head">
+      <p class="kicker">Como funciona</p>
       <h2>Do primeiro “oi” ao relatório pronto.</h2>
       <p>O candidato só precisa do WhatsApp que já está no bolso dele.</p>
     </div>
@@ -936,6 +1007,7 @@
 
   <section>
     <div class="sec-head">
+      <p class="kicker">Para quem é</p>
       <h2>Três operações diferentes, a mesma hora de volta.</h2>
       <p>O que elas têm em comum não é o tamanho — é não ter ninguém sobrando
       para ficar na ligação.</p>
@@ -966,8 +1038,9 @@
     </div>
   </section>
 
-  <section>
+  <section class="faixa">
     <div class="sec-head">
+      <p class="kicker">Garantias</p>
       <h2>O que não muda, seja uma vaga ou cinquenta.</h2>
     </div>
 
@@ -988,6 +1061,72 @@
         <h3>Cada empresa vê só o que é seu</h3>
         <p>O isolamento entre clientes é garantido no banco de dados, não na tela. Dado de um cliente não alcança o outro.</p>
       </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head">
+      <p class="kicker">Dúvidas</p>
+      <h2>O que perguntam antes de criar a conta.</h2>
+    </div>
+
+    <!-- `details` nativo: o navegador abre e fecha sozinho, e a resposta
+         continua no HTML quando está fechada — é o que o buscador indexa.
+         Toda resposta aqui tem que bater com a Privacidade e os Termos. -->
+    <div class="faq">
+      <details>
+        <summary>A IA dá alguma nota ao candidato?</summary>
+        <div class="resp">
+          <p>Não. Ela conduz a conversa e transcreve o que foi dito. O único número que
+          aparece é quantos dos requisitos que <em>você</em> declarou na vaga o candidato
+          atende — "6 de 7" — com a lista do que faltou. Não existe escore de perfil, de
+          permanência nem de desempenho. Quem avalia a pessoa é a sua equipe.</p>
+        </div>
+      </details>
+      <details>
+        <summary>O candidato precisa instalar ou se cadastrar em alguma coisa?</summary>
+        <div class="resp">
+          <p>Não. Ele manda mensagem para um número de WhatsApp e responde falando, como
+          mandaria áudio para qualquer pessoa. Sem aplicativo, sem link de reunião, sem
+          senha e sem horário marcado — ele responde na hora em que puder.</p>
+        </div>
+      </details>
+      <details>
+        <summary>As perguntas são minhas ou são prontas?</summary>
+        <div class="resp">
+          <p>São suas, por vaga. Perguntas obrigatórias e condicionais: se o candidato
+          disser que já trabalhou com CRM, a pergunta seguinte muda sozinha. O agente
+          também pede esclarecimento quando a resposta fica pela metade.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Como fica a LGPD?</summary>
+        <div class="resp">
+          <p>O candidato é informado, no início da conversa, de que está falando com um
+          agente automatizado e de que as respostas serão registradas. Os dados ficam
+          por 6 meses após a entrevista, ou menos, se a empresa determinar.</p>
+          <p>Gravações e transcrições <strong>não</strong> são usadas para treinar modelos.
+          E como não há nota sobre a pessoa, não há decisão automatizada a contestar — o
+          que existe é conferência de requisito, explicável item a item.
+          Está detalhado na <a href="/privacidade">política de privacidade</a>.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Quanto tempo leva para colocar uma vaga no ar?</summary>
+        <div class="resp">
+          <p>Minutos. Você cria a conta, escreve as perguntas e recebe um código de seis
+          caracteres para colar no anúncio da vaga ou num QR na vitrine. Não há número de
+          WhatsApp para homologar nem integração para configurar — o número é nosso.</p>
+        </div>
+      </details>
+      <details>
+        <summary>E se o candidato abandonar no meio?</summary>
+        <div class="resp">
+          <p>Não consome a sua cota. Entrevista abandonada, cancelada ou com erro devolve
+          a vaga para a cota — você paga por entrevista concluída, não por candidato que
+          sumiu.</p>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -1246,5 +1385,64 @@
 })();
 </script>
 
+<!-- Marcação das dúvidas para o buscador. O texto aqui tem que ser o
+     mesmo que a pessoa lê na tela: resposta que só existe no schema é
+     motivo de penalidade, não de destaque. -->
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "A IA dá alguma nota ao candidato?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não. Ela conduz a conversa e transcreve o que foi dito. O único número que aparece é quantos dos requisitos que você declarou na vaga o candidato atende, com a lista do que faltou. Não existe escore de perfil, de permanência nem de desempenho. Quem avalia a pessoa é a sua equipe."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "O candidato precisa instalar ou se cadastrar em alguma coisa?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não. Ele manda mensagem para um número de WhatsApp e responde falando, como mandaria áudio para qualquer pessoa. Sem aplicativo, sem link de reunião, sem senha e sem horário marcado."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "As perguntas são minhas ou são prontas?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "São suas, por vaga. Perguntas obrigatórias e condicionais: se o candidato disser que já trabalhou com CRM, a pergunta seguinte muda sozinha. O agente também pede esclarecimento quando a resposta fica pela metade."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Como fica a LGPD?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "O candidato é informado, no início da conversa, de que está falando com um agente automatizado e de que as respostas serão registradas. Os dados ficam por 6 meses após a entrevista, ou menos, se a empresa determinar. Gravações e transcrições não são usadas para treinar modelos. Como não há nota sobre a pessoa, não há decisão automatizada a contestar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Quanto tempo leva para colocar uma vaga no ar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Minutos. Você cria a conta, escreve as perguntas e recebe um código de seis caracteres para colar no anúncio da vaga ou num QR na vitrine. Não há número de WhatsApp para homologar nem integração para configurar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "E se o candidato abandonar no meio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não consome a sua cota. Entrevista abandonada, cancelada ou com erro devolve a vaga para a cota: você paga por entrevista concluída, não por candidato que sumiu."
+   }
+  }
+ ]
+}
+</script>
 </body>
 </html>
